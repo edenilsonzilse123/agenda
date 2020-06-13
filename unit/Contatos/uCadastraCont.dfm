@@ -1,0 +1,72 @@
+inherited frmCadastraCont: TfrmCadastraCont
+  Left = 308
+  Top = 248
+  Caption = 'Cadastro de contatos'
+  OldCreateOrder = True
+  Position = poDesktopCenter
+  OnShow = FormShow
+  PixelsPerInch = 96
+  TextHeight = 13
+  object lblDDD: TLabel [0]
+    Left = 8
+    Top = 133
+    Width = 21
+    Height = 13
+    Caption = 'DDD'
+  end
+  inherited pnlBotoes: TPanel
+    inherited btnGravar: TSpeedButton
+      OnClick = btnGravarClick
+    end
+  end
+  object lbledtNome: TLabeledEdit
+    Left = 8
+    Top = 24
+    Width = 478
+    Height = 21
+    EditLabel.Width = 31
+    EditLabel.Height = 13
+    EditLabel.Caption = 'Nome:'
+    TabOrder = 1
+  end
+  object lbledtEndereco: TLabeledEdit
+    Left = 8
+    Top = 64
+    Width = 478
+    Height = 21
+    EditLabel.Width = 49
+    EditLabel.Height = 13
+    EditLabel.Caption = 'Endere'#231'o:'
+    TabOrder = 2
+  end
+  inline frmcdsCidade: TfrmCidades
+    Left = 7
+    Top = 85
+    Width = 479
+    Height = 45
+    TabOrder = 3
+    inherited lbledtNomeCidade: TLabeledEdit
+      EditLabel.Width = 76
+    end
+  end
+  object cbbDDD: TComboBox
+    Left = 8
+    Top = 149
+    Width = 50
+    Height = 21
+    DropDownCount = 30
+    ItemHeight = 13
+    TabOrder = 4
+  end
+  object lbledtTelefone: TLabeledEdit
+    Left = 61
+    Top = 149
+    Width = 100
+    Height = 21
+    EditLabel.Width = 46
+    EditLabel.Height = 13
+    EditLabel.Caption = 'Telefone:'
+    TabOrder = 5
+    OnKeyPress = lbledtTelefoneKeyPress
+  end
+end

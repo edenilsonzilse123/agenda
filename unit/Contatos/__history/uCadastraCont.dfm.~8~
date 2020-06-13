@@ -1,0 +1,21 @@
+inherited frmCadastraCont: TfrmCadastraCont
+  Caption = 'frmCadastraCont'
+  Position = poDesktopCenter
+  PixelsPerInch = 96
+  TextHeight = 13
+  inherited pnlBotoes: TPanel
+    inherited btnGravar: TSpeedButton
+      OnClick = btnGravarClick
+    end
+  end
+  object lbledtNome: TLabeledEdit
+    Left = 8
+    Top = 24
+    Width = 478
+    Height = 21
+    EditLabel.Width = 31
+    EditLabel.Height = 13
+    EditLabel.Caption = 'Nome:'
+    TabOrder = 1
+  end
+end

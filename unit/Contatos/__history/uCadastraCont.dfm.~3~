@@ -1,0 +1,5 @@
+inherited frmCadastrar: TfrmCadastrar
+  Caption = 'frmCadastrar'
+  PixelsPerInch = 96
+  TextHeight = 13
+end

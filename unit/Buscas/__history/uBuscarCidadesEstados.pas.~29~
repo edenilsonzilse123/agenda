@@ -1,0 +1,110 @@
+unit uBuscarCidadesEstados;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uCadastraBase, Vcl.Buttons, Vcl.ExtCtrls,
+  Data.DB, Vcl.Grids, Vcl.DBGrids, ZAbstractRODataset, ZAbstractDataset,
+  ZDataset, Vcl.StdCtrls;
+
+type
+  TfrmBuscarCidadesEstados = class(TfrmBase)
+    pnlFiltro: TPanel;
+    dbgrdListar: TDBGrid;
+    zqryEstados: TZQuery;
+    zqryCidades: TZQuery;
+    dsEstados: TDataSource;
+    dsCidades: TDataSource;
+    intgrfldEstadosid: TIntegerField;
+    wdstrngfldEstadosnome: TWideStringField;
+    wdstrngfldEstadosuf: TWideStringField;
+    intgrfldCidadesid: TIntegerField;
+    wdstrngfldCidadesnome: TWideStringField;
+    intgrfldCidadesestado: TIntegerField;
+    lbledtCodigoEstado: TLabeledEdit;
+    lbledtNomeEstado: TLabeledEdit;
+    btnPesquisar: TSpeedButton;
+    procedure btnPesquisarClick(Sender: TObject);
+  private
+    procedure SetarTexto;
+  public
+    procedure SetarTitulo(dsTitulo:String);
+    procedure BuscarCidades(nrEstado:Integer);
+    procedure BuscarEstados;
+    procedure Buscar;
+    procedure SetarCodigo(nrCod:String);
+  end;
+
+var
+  frmBuscarCidadesEstados: TfrmBuscarCidadesEstados;
+  vTagBuscar:Integer=1;
+  vCodigoEstado:Integer;
+
+implementation
+
+uses
+  uDM, uGeral;
+
+{$R *.dfm}
+
+procedure TfrmBuscarCidadesEstados.btnPesquisarClick(Sender: TObject);
+begin
+  inherited;
+  case vTagBuscar of
+    1:BuscarEstados;
+    2:BuscarCidades(vCodigoEstado);
+  end;
+end;
+
+procedure TfrmBuscarCidadesEstados.Buscar;
+begin
+  SetarTexto;
+end;
+
+procedure TfrmBuscarCidadesEstados.BuscarCidades(nrEstado: Integer);
+begin
+  with zqryCidades do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add(' SELECT * FROM CIDADE ');
+    SQL.Add(' WHERE 1=1 ');
+    SQL.Add(' AND ESTADO = ' + NumeroSql(IntToStr(nrEstado)));
+    Open;
+  end;
+  dbgrdListar.DataSource := dsCidades;
+end;
+
+procedure TfrmBuscarCidadesEstados.BuscarEstados;
+begin
+  with zqryEstados do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add(' SELECT * FROM ESTADOS ');
+    SQL.Add(' WHERE 1=1 ');
+    Open;
+  end;
+  dbgrdListar.DataSource := dsEstados;
+end;
+
+procedure TfrmBuscarCidadesEstados.SetarCodigo(nrCod: String);
+begin
+  lbledtCodigoEstado.Text := nrCod;
+end;
+
+procedure TfrmBuscarCidadesEstados.SetarTexto;
+begin
+  case vTagBuscar of
+    1:lbledtNomeEstado.EditLabel := 'Nome do Estado';
+    2:lbledtNomeEstado.EditLabel := 'Nome da Cidade';
+  end;
+end;
+
+procedure TfrmBuscarCidadesEstados.SetarTitulo(dsTitulo: String);
+begin
+  Caption := dsTitulo;
+end;
+
+end.

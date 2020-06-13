@@ -1,0 +1,33 @@
+unit uCadastraBase;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.Buttons;
+
+type
+  TfrmBase = class(TForm)
+    pnlBotoes: TPanel;
+    btnGravar: TSpeedButton;
+    btnCancelar: TSpeedButton;
+    procedure btnCancelarClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmBase: TfrmBase;
+
+implementation
+
+{$R *.dfm}
+
+procedure TfrmBase.btnCancelarClick(Sender: TObject);
+begin
+  Close;
+end;
+
+end.

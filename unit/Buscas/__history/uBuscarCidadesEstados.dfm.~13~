@@ -1,0 +1,91 @@
+inherited frmBuscarCidadesEstados: TfrmBuscarCidadesEstados
+  Caption = 'frmBuscarCidadesEstados'
+  PixelsPerInch = 96
+  TextHeight = 13
+  object pnlFiltro: TPanel
+    Left = 0
+    Top = 0
+    Width = 494
+    Height = 73
+    Align = alTop
+    TabOrder = 1
+  end
+  object dbgrdListar: TDBGrid
+    Left = 0
+    Top = 73
+    Width = 494
+    Height = 253
+    Align = alClient
+    DataSource = dsCidades
+    TabOrder = 2
+    TitleFont.Charset = DEFAULT_CHARSET
+    TitleFont.Color = clWindowText
+    TitleFont.Height = -11
+    TitleFont.Name = 'Tahoma'
+    TitleFont.Style = []
+  end
+  object zqryEstados: TZQuery
+    Connection = dm.conn
+    Active = True
+    SQL.Strings = (
+      'SELECT * FROM ESTADO')
+    Params = <>
+    Left = 208
+    Top = 160
+    object intgrfldEstadosid: TIntegerField
+      Alignment = taCenter
+      DisplayLabel = 'C'#243'digo'
+      DisplayWidth = 5
+      FieldName = 'id'
+      Required = True
+    end
+    object wdstrngfldEstadosnome: TWideStringField
+      DisplayLabel = 'Nome'
+      DisplayWidth = 60
+      FieldName = 'nome'
+      Size = 75
+    end
+    object wdstrngfldEstadosuf: TWideStringField
+      Alignment = taCenter
+      DisplayLabel = 'UF'
+      FieldName = 'uf'
+      Size = 5
+    end
+  end
+  object zqryCidades: TZQuery
+    Connection = dm.conn
+    Active = True
+    SQL.Strings = (
+      'SELECT * FROM CIDADE')
+    Params = <>
+    Left = 280
+    Top = 168
+    object intgrfldCidadesid: TIntegerField
+      Alignment = taCenter
+      DisplayLabel = 'C'#243'digo'
+      DisplayWidth = 5
+      FieldName = 'id'
+      Required = True
+    end
+    object wdstrngfldCidadesnome: TWideStringField
+      DisplayLabel = 'Nome'
+      DisplayWidth = 60
+      FieldName = 'nome'
+      Size = 120
+    end
+    object intgrfldCidadesestado: TIntegerField
+      FieldName = 'estado'
+      Visible = False
+    end
+  end
+  object dsEstados: TDataSource
+    DataSet = zqryEstados
+    Left = 336
+    Top = 112
+  end
+  object dsCidades: TDataSource
+    DataSet = zqryCidades
+    Left = 384
+    Top = 224
+  end
+end

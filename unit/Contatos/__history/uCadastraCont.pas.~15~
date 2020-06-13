@@ -1,0 +1,59 @@
+unit uCadastraCont;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uCadastraBase, Vcl.Buttons, Vcl.ExtCtrls,
+  Vcl.StdCtrls;
+
+type
+  TfrmCadastraCont = class(TfrmBase)
+    lbledtNome: TLabeledEdit;
+    lbledtEndereco: TLabeledEdit;
+    procedure btnCancelarClick(Sender: TObject);
+    procedure btnGravarClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmCadastraCont: TfrmCadastraCont;
+
+implementation
+
+uses
+  uGeral, uDM;
+
+{$R *.dfm}
+
+procedure TfrmCadastraCont.btnCancelarClick(Sender: TObject);
+begin
+  inherited;
+  frmCadastraCont := nil;
+end;
+
+procedure TfrmCadastraCont.btnGravarClick(Sender: TObject);
+var
+  vTabela,vCampos,vValores:String;
+const
+  cMensagemSucesso:String = 'Registro inserido com sucesso!';
+  cMensagemAtencao:String = 'Registro não pode ser inserido!';
+begin
+  inherited;
+  try
+    vTabela   := 'TB_CONTATOS';
+    vCampos   := 'NOME,ENDERECO';
+    vValores  := StringSql(lbledtNome.Text)+','+StringSql(lbledtEndereco.Text);
+    InsereBanco(vTabela,vCampos,vValores);
+    VoltarComitarBanco(1);
+    MensagemSucesso(cMensagemSucesso);
+  except
+    VoltarComitarBanco(2);
+    MensagemSucesso(cMensagemAtencao);
+  end;
+end;
+
+end.

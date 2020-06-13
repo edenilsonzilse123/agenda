@@ -1,0 +1,34 @@
+unit uDM;
+
+interface
+
+uses
+  System.SysUtils, System.Classes, ZAbstractConnection, ZConnection, Data.DB,
+  ZAbstractRODataset, ZAbstractDataset, ZDataset;
+
+type
+  Tdm = class(TDataModule)
+    conn: TZConnection;
+    zqContatos: TZQuery;
+    dsContatos: TDataSource;
+    zqContatosid: TIntegerField;
+    zqContatosdt_cadastro: TDateTimeField;
+    zqContatosdt_atualizacao: TDateTimeField;
+    zqContatosnome: TWideStringField;
+    wdstrngfldContatosendereco: TWideStringField;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  dm: Tdm;
+
+implementation
+
+{%CLASSGROUP 'Vcl.Controls.TControl'}
+
+{$R *.dfm}
+
+end.

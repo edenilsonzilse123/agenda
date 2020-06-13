@@ -1,0 +1,59 @@
+object dm: Tdm
+  OldCreateOrder = False
+  Height = 391
+  Width = 543
+  object conn: TZConnection
+    ControlsCodePage = cCP_UTF16
+    AutoEncodeStrings = True
+    Catalog = ''
+    AutoCommit = False
+    Connected = True
+    HostName = 'localhost'
+    Port = 3306
+    Database = 'agenda'
+    User = 'root'
+    Password = 'koerich1*'
+    Protocol = 'mysql-5'
+    Left = 240
+    Top = 16
+  end
+  object zqContatos: TZQuery
+    Connection = conn
+    Active = True
+    SQL.Strings = (
+      'select * from tb_contatos_v')
+    Params = <>
+    Left = 40
+    Top = 72
+    object wdstrngfldContatosNOME: TWideStringField
+      DisplayLabel = 'Nome'
+      DisplayWidth = 25
+      FieldName = 'NOME'
+      Size = 50
+    end
+    object wdstrngfldContatosENDERECO: TWideStringField
+      DisplayLabel = 'Endere'#231'o'
+      DisplayWidth = 25
+      FieldName = 'ENDERECO'
+      Size = 50
+    end
+    object wdstrngfldContatosCIDADENOME: TWideStringField
+      DisplayLabel = 'Cidade'
+      DisplayWidth = 25
+      FieldName = 'CIDADENOME'
+      Size = 120
+    end
+    object wdstrngfldContatosESTADONOME: TWideStringField
+      DisplayLabel = 'Estado'
+      DisplayWidth = 25
+      FieldName = 'ESTADONOME'
+      Size = 75
+    end
+  end
+  object dsContatos: TDataSource
+    AutoEdit = False
+    DataSet = zqContatos
+    Left = 80
+    Top = 72
+  end
+end

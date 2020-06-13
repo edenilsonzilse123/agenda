@@ -1,0 +1,31 @@
+unit uGeral;
+
+interface
+
+uses
+  System.SysUtils, System.Classes, ZAbstractConnection, ZConnection, Data.DB,
+  ZAbstractRODataset, ZAbstractDataset, ZDataset;
+
+procedure InsereBanco(tabela,campos,valores:String);
+
+implementation
+
+uses uDM;
+
+procedure InsereBanco(tabela,campos,valores:String);
+var
+  qryInserir:TZQuery;
+begin
+  qryInserir := TZQuery.Create(nil);
+  with qryInserir do
+  begin
+    Connection := dm.conn;
+    Close;
+    SQL.Clear;
+    SQL.Add('INSERT INTO ' + tabela + ' (' + campos + ') VALUES (' + valores + ')');
+    ExecSQL;
+  end;
+  FreeAndNil(qryInserir);
+end;
+
+end.

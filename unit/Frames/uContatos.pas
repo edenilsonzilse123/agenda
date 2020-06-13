@@ -13,6 +13,7 @@ type
     lbledtNomeContato: TLabeledEdit;
     procedure BuscarContato(nrContato:Integer);
     procedure lbledtCodigoContatoChange(Sender: TObject);
+    procedure lbledtCodigoContatoDblClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -22,7 +23,7 @@ type
 implementation
 
 uses
-  uDM, DB, uGeral;
+  uDM, DB, uGeral, uBuscaContatos;
 
 {$R *.dfm}
 
@@ -46,6 +47,15 @@ end;
 procedure TfrmContatos.lbledtCodigoContatoChange(Sender: TObject);
 begin
   BuscarContato(StrToIntDef(lbledtCodigoContato.Text,0));
+end;
+
+procedure TfrmContatos.lbledtCodigoContatoDblClick(Sender: TObject);
+begin
+  if (frmBuscaContatos = nil) then
+    Application.CreateForm(TfrmBuscaContatos,frmBuscaContatos);
+  frmBuscaContatos.ShowModal;
+  lbledtCodigoContato.Text := frmBuscaContatos.getCodigo;
+  FreeAndNil(frmBuscaContatos);
 end;
 
 end.

@@ -15,6 +15,7 @@ object frmContatos: TfrmContatos
     MaxLength = 2
     TabOrder = 0
     OnChange = lbledtCodigoContatoChange
+    OnDblClick = lbledtCodigoContatoDblClick
   end
   object lbledtNomeContato: TLabeledEdit
     Left = 56

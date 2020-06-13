@@ -1,7 +1,8 @@
-inherited frmBase1: TfrmBase1
+inherited frmBuscaContatos: TfrmBuscaContatos
   Left = 483
   Top = 252
   Caption = 'frmBuscaContatos'
+  OldCreateOrder = True
   PixelsPerInch = 96
   TextHeight = 13
   object pnlFiltro: TPanel
@@ -43,8 +44,9 @@ inherited frmBase1: TfrmBase1
         AD87A290D6EE90E7FF96B1CE94A9C893C4E190F9FF9298B6E9CFD7FFFFFFFFFF
         FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFE6CAD5BAA4B99FAAC49DAAC5A8
         A9C1CEA9BCFFFBFBFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
+      OnClick = btnPesquisarClick
     end
-    object lbledtCodigoEstado: TLabeledEdit
+    object lbledtCodigoContato: TLabeledEdit
       Left = 3
       Top = 19
       Width = 50
@@ -54,15 +56,15 @@ inherited frmBase1: TfrmBase1
       EditLabel.Caption = 'C'#243'digo'
       TabOrder = 0
     end
-    object lbledtNomeEstado: TLabeledEdit
+    object lbledtNomeContato: TLabeledEdit
       Left = 56
       Top = 19
       Width = 289
       Height = 21
       Color = clWhite
-      EditLabel.Width = 78
+      EditLabel.Width = 82
       EditLabel.Height = 13
-      EditLabel.Caption = 'Nome do estado'
+      EditLabel.Caption = 'Nome do contato'
       TabOrder = 1
     end
   end
@@ -72,11 +74,68 @@ inherited frmBase1: TfrmBase1
     Width = 384
     Height = 177
     Align = alClient
+    DataSource = dsContatos
     TabOrder = 2
     TitleFont.Charset = DEFAULT_CHARSET
     TitleFont.Color = clWindowText
     TitleFont.Height = -11
     TitleFont.Name = 'Tahoma'
     TitleFont.Style = []
+  end
+  object dsContatos: TDataSource
+    DataSet = zqryContatos
+    Left = 217
+    Top = 171
+  end
+  object zqryContatos: TZQuery
+    Connection = dm.conn
+    Active = True
+    SQL.Strings = (
+      'SELECT * FROM TB_CONTATOS')
+    Params = <>
+    Left = 281
+    Top = 171
+    object intgrfldCidadesid: TIntegerField
+      Alignment = taCenter
+      DisplayLabel = 'C'#243'digo'
+      DisplayWidth = 1
+      FieldName = 'id'
+      Required = True
+    end
+    object dtmfldCidadesdt_cadastro: TDateTimeField
+      FieldName = 'dt_cadastro'
+      Visible = False
+    end
+    object dtmfldCidadesdt_atualizacao: TDateTimeField
+      FieldName = 'dt_atualizacao'
+      Visible = False
+    end
+    object strngfldCidadesnome: TStringField
+      DisplayLabel = 'Nome'
+      DisplayWidth = 40
+      FieldName = 'nome'
+      Size = 200
+    end
+    object strngfldCidadesendereco: TStringField
+      FieldName = 'endereco'
+      Visible = False
+      Size = 200
+    end
+    object intgrfldCidadescidade: TIntegerField
+      FieldName = 'cidade'
+      Visible = False
+    end
+    object intgrfldCidadesestado: TIntegerField
+      FieldName = 'estado'
+      Visible = False
+    end
+    object intgrfldCidadesddd: TIntegerField
+      FieldName = 'ddd'
+      Visible = False
+    end
+    object intgrfldCidadestelefone: TIntegerField
+      FieldName = 'telefone'
+      Visible = False
+    end
   end
 end

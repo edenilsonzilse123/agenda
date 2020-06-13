@@ -12,7 +12,7 @@ uses
   uCadastraCompromisso in '..\unit\Compromissos\uCadastraCompromisso.pas' {frmCadastraCompromisso},
   uContatos in '..\unit\Frames\uContatos.pas' {frmContatos: TFrame},
   uHorarios in '..\unit\Frames\uHorarios.pas' {frmHorarios: TFrame},
-  uBuscaContatos in '..\unit\Buscas\uBuscaContatos.pas' {frmBase1};
+  uBuscaContatos in '..\unit\Buscas\uBuscaContatos.pas' {frmBuscaContatos};
 
 {$R *.res}
 
@@ -24,6 +24,6 @@ begin
   Application.CreateForm(TfrmCadastraCont, frmCadastraCont);
   Application.CreateForm(TfrmBuscarCidadesEstados, frmBuscarCidadesEstados);
   Application.CreateForm(TfrmCadastraCompromisso, frmCadastraCompromisso);
-  Application.CreateForm(TfrmBase1, frmBase1);
+  Application.CreateForm(TfrmBuscaContatos, frmBuscaContatos);
   Application.Run;
 end.

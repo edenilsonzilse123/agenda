@@ -14,6 +14,9 @@ procedure MensagemSucesso(dsMensagem:String);
 function  StringSql(str:String):String;
 function  NumeroSql(str:String):String;
 function  NumeroSqlNull(str:Integer;zeroNull:Boolean):String;
+function  ComEspaco(texto:String;qtdEspacos:Integer;AmbosLados:Boolean):String;
+function  DataSql(pData:String):String;
+function  HoraSql(pHora:String):String;
 
 implementation
 
@@ -82,6 +85,35 @@ begin
   end
   else
     Result := IntToStr(str);
+end;
+
+function  ComEspaco(texto:String;qtdEspacos:Integer;AmbosLados:Boolean):String;
+var
+  vResultado:String;
+  x:Integer;
+begin
+  vResultado := '';
+  for x := 0 to qtdEspacos - 1 do
+    vResultado := ' ' + vResultado;
+  vResultado := vResultado + texto;
+  if (AmbosLados) then
+  begin
+    for x := 0 to qtdEspacos - 1 do
+      vResultado := vResultado + ' ' ;
+  end;
+  Result := vResultado;
+end;
+
+function  DataSql(pData:String):String;
+begin
+  Result := '';
+  Result := StringSql(Copy(pData,7,4)+'-'+Copy(pData,4,2)+'-'+Copy(pData,1,2));
+end;
+
+function  HoraSql(pHora:String):String;
+begin
+  Result := '';
+  Result := StringSql(Copy(pHora,1,2)+':'+Copy(pHora,3,2)+':00');
 end;
 
 end.

@@ -28,6 +28,9 @@ type
     procedure SetarTexto(dsTexto:String);
     procedure btnPesquisarClick(Sender: TObject);
     procedure BuscarContatos;
+
+    function  getCodigo:String;
+    procedure dbgrdListarDblClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -68,6 +71,18 @@ begin
     SQL.Add(vSqlBuscar);
     Open; First; FetchAll;
   end;
+end;
+
+function TfrmBuscaContatos.getCodigo: String;
+begin
+  Result := lbledtCodigoContato.Text;
+end;
+
+procedure TfrmBuscaContatos.dbgrdListarDblClick(Sender: TObject);
+begin
+  inherited;
+  lbledtCodigoContato.Text := dbgrdListar.Fields[0].AsString;
+  Close;
 end;
 
 end.

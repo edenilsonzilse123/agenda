@@ -14,6 +14,7 @@ type
     procedure btnCancelarClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure SetarBotoes;
+    procedure SetarTitulo(dsTitulo:String);
   private
     { Private declarations }
   public
@@ -40,6 +41,11 @@ end;
 procedure TfrmBase.SetarBotoes;
 begin
   btnCancelar.Left := pnlBotoes.Width - btnCancelar.Width;
+end;
+
+procedure TfrmBase.SetarTitulo(dsTitulo: String);
+begin
+  Caption := dsTitulo;
 end;
 
 end.

@@ -5,6 +5,11 @@ inherited frmBuscaContatos: TfrmBuscaContatos
   OldCreateOrder = True
   PixelsPerInch = 96
   TextHeight = 13
+  inherited pnlBotoes: TPanel
+    inherited btnGravar: TSpeedButton
+      OnClick = dbgrdListarDblClick
+    end
+  end
   object pnlFiltro: TPanel
     Left = 0
     Top = 0
@@ -75,12 +80,14 @@ inherited frmBuscaContatos: TfrmBuscaContatos
     Height = 177
     Align = alClient
     DataSource = dsContatos
+    Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
     TabOrder = 2
     TitleFont.Charset = DEFAULT_CHARSET
     TitleFont.Color = clWindowText
     TitleFont.Height = -11
     TitleFont.Name = 'Tahoma'
     TitleFont.Style = []
+    OnDblClick = dbgrdListarDblClick
   end
   object dsContatos: TDataSource
     DataSet = zqryContatos

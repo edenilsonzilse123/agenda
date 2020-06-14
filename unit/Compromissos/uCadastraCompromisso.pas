@@ -4,15 +4,17 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, ComCtrls, uHorarios, uContatos;
+  Dialogs, uCadastraBase, uContatos, uHorarios, ComCtrls, StdCtrls,
+  Buttons, ExtCtrls;
 
 type
-  TfrmCadastraCompromisso = class(TForm)
+  TfrmCadastraCompromisso = class(TfrmBase)
     lblData: TLabel;
     dtpDataCompromisso: TDateTimePicker;
     frmhrs1: TfrmHorarios;
     frmcnts1: TfrmContatos;
     procedure FormShow(Sender: TObject);
+    procedure btnGravarClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -24,11 +26,23 @@ var
 
 implementation
 
+uses
+  uGeral;
+
 {$R *.dfm}
 
 procedure TfrmCadastraCompromisso.FormShow(Sender: TObject);
 begin
-  frmhrs1.SetarTexto(' Horário ');
+  inherited;
+  frmhrs1.SetarTexto('Horários');
+  SetarTitulo('Cadastro de compromissos');
+end;
+
+procedure TfrmCadastraCompromisso.btnGravarClick(Sender: TObject);
+begin
+  inherited;
+  ShowMessage(DataSql(DateToStr(dtpDataCompromisso.Date)));
+  ShowMessage(frmhrs1.getHora);
 end;
 
 end.

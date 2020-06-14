@@ -2,9 +2,8 @@ inherited frmCadastraCont: TfrmCadastraCont
   Left = 308
   Top = 248
   Caption = 'Cadastro de contatos'
+  ClientWidth = 497
   OldCreateOrder = True
-  Position = poDesktopCenter
-  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object lblDDD: TLabel [0]
@@ -15,6 +14,7 @@ inherited frmCadastraCont: TfrmCadastraCont
     Caption = 'DDD'
   end
   inherited pnlBotoes: TPanel
+    Width = 497
     inherited btnGravar: TSpeedButton
       OnClick = btnGravarClick
     end

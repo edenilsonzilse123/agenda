@@ -30,6 +30,7 @@ type
     procedure BuscarContatos;
 
     function  getCodigo:String;
+    procedure dbgrdListarDblClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -75,6 +76,13 @@ end;
 function TfrmBuscaContatos.getCodigo: String;
 begin
   Result := lbledtCodigoContato.Text;
+end;
+
+procedure TfrmBuscaContatos.dbgrdListarDblClick(Sender: TObject);
+begin
+  inherited;
+  lbledtCodigoContato.Text := dbgrdListar.Fields[0].AsString;
+  Close;
 end;
 
 end.

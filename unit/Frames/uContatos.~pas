@@ -54,6 +54,8 @@ begin
   if (frmBuscaContatos = nil) then
     Application.CreateForm(TfrmBuscaContatos,frmBuscaContatos);
   frmBuscaContatos.ShowModal;
+  lbledtCodigoContato.Text := frmBuscaContatos.getCodigo;
+  FreeAndNil(frmBuscaContatos);
 end;
 
 end.

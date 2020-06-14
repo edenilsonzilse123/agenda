@@ -9,10 +9,10 @@ uses
   uCadastraCont in '..\unit\Contatos\uCadastraCont.pas' {frmCadastraCont},
   uCidades in '..\unit\Frames\uCidades.pas' {frmCidades: TFrame},
   uBuscarCidadesEstados in '..\unit\Buscas\uBuscarCidadesEstados.pas' {frmBuscarCidadesEstados},
-  uCadastraCompromisso in '..\unit\Compromissos\uCadastraCompromisso.pas' {frmCadastraCompromisso},
   uContatos in '..\unit\Frames\uContatos.pas' {frmContatos: TFrame},
   uHorarios in '..\unit\Frames\uHorarios.pas' {frmHorarios: TFrame},
-  uBuscaContatos in '..\unit\Buscas\uBuscaContatos.pas' {frmBase1};
+  uBuscaContatos in '..\unit\Buscas\uBuscaContatos.pas' {frmBuscaContatos},
+  uCadastraCompromisso in '..\unit\Compromissos\uCadastraCompromisso.pas' {frmBase1};
 
 {$R *.res}
 
@@ -23,7 +23,7 @@ begin
   Application.CreateForm(TfrmBase, frmBase);
   Application.CreateForm(TfrmCadastraCont, frmCadastraCont);
   Application.CreateForm(TfrmBuscarCidadesEstados, frmBuscarCidadesEstados);
-  Application.CreateForm(TfrmCadastraCompromisso, frmCadastraCompromisso);
+  Application.CreateForm(TfrmBuscaContatos, frmBuscaContatos);
   Application.CreateForm(TfrmBase1, frmBase1);
   Application.Run;
 end.

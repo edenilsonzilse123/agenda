@@ -4,8 +4,8 @@ object frmBase: TfrmBase
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'frmBase'
-  ClientHeight = 371
-  ClientWidth = 494
+  ClientHeight = 271
+  ClientWidth = 384
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -13,13 +13,14 @@ object frmBase: TfrmBase
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  Position = poDesktopCenter
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object pnlBotoes: TPanel
     Left = 0
-    Top = 326
-    Width = 494
+    Top = 226
+    Width = 384
     Height = 45
     Align = alBottom
     TabOrder = 0

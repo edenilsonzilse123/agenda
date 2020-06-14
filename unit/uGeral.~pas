@@ -3,8 +3,8 @@ unit uGeral;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Classes, ZAbstractConnection, ZConnection, Data.DB,
-  ZAbstractRODataset, ZAbstractDataset, ZDataset, Vcl.Forms;
+  Windows, Messages, SysUtils, Classes, ZAbstractConnection, ZConnection, DB,
+  ZAbstractRODataset, ZAbstractDataset, ZDataset, Forms;
 
 procedure InsereBanco(tabela,campos,valores:String);
 procedure VoltarComitarBanco(nrAcao:Integer);
@@ -14,6 +14,8 @@ procedure MensagemSucesso(dsMensagem:String);
 function  StringSql(str:String):String;
 function  NumeroSql(str:String):String;
 function  NumeroSqlNull(str:Integer;zeroNull:Boolean):String;
+function  ComEspaco(texto:String;qtdEspacos:Integer;AmbosLados:Boolean):String;
+function  DataSql(pData:String):String;
 
 implementation
 
@@ -82,6 +84,29 @@ begin
   end
   else
     Result := IntToStr(str);
+end;
+
+function  ComEspaco(texto:String;qtdEspacos:Integer;AmbosLados:Boolean):String;
+var
+  vResultado:String;
+  x:Integer;
+begin
+  vResultado := '';
+  for x := 0 to qtdEspacos - 1 do
+    vResultado := ' ' + vResultado;
+  vResultado := vResultado + texto;
+  if (AmbosLados) then
+  begin
+    for x := 0 to qtdEspacos - 1 do
+      vResultado := vResultado + ' ' ;
+  end;
+  Result := vResultado;
+end;
+
+function  DataSql(pData:String):String;
+begin
+  Result := '';
+  Result := StringSql(Copy(pData,7,4)+'-'+Copy(pData,4,2)+'-'+Copy(pData,1,2));
 end;
 
 end.

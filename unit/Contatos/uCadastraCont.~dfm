@@ -1,7 +1,7 @@
 inherited frmCadastraCont: TfrmCadastraCont
   Left = 308
   Top = 248
-  Caption = 'frmCadastraCont'
+  Caption = 'Cadastro de contatos'
   OldCreateOrder = True
   Position = poDesktopCenter
   OnShow = FormShow

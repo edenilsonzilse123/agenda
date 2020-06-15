@@ -16,6 +16,12 @@ type
     strngfldContatosESTADONOME: TStringField;
     strngfldContatosDDD: TStringField;
     strngfldContatosTELEFONE: TStringField;
+    zqryCompromissos: TZQuery;
+    dsCompromissos: TDataSource;
+    strngfldCompromissoscontato: TStringField;
+    dtfldCompromissosdatacomp: TDateField;
+    tmfldCompromissoshoracomp: TTimeField;
+    strngfldCompromissosdesccomp: TStringField;
   private
     { Private declarations }
   public

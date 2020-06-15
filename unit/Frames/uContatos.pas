@@ -14,6 +14,8 @@ type
     procedure BuscarContato(nrContato:Integer);
     procedure lbledtCodigoContatoChange(Sender: TObject);
     procedure lbledtCodigoContatoDblClick(Sender: TObject);
+
+    function  getCodigo:Integer;
   private
     { Private declarations }
   public
@@ -42,6 +44,11 @@ begin
     lbledtNomeContato.Text := FieldByName('NOME').AsString;
   end;
   FreeAndNil(zQuery);
+end;
+
+function TfrmContatos.getCodigo: Integer;
+begin
+  Result := StrToIntDef(lbledtCodigoContato.Text,0);
 end;
 
 procedure TfrmContatos.lbledtCodigoContatoChange(Sender: TObject);

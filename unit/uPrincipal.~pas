@@ -14,10 +14,20 @@ type
     pnlTituloCompHoje: TPanel;
     btnCadContatos: TSpeedButton;
     btn1: TSpeedButton;
+    dbgrdCompromissos: TDBGrid;
+    pnlCompromissos: TPanel;
+    chkMostrarTodosComp: TCheckBox;
+    tmrPrincipal: TTimer;
     procedure FormActivate(Sender: TObject);
     procedure NovoContato;
     procedure btnCadContatosClick(Sender: TObject);
     procedure btn1Click(Sender: TObject);
+    procedure Login;
+    procedure FormShow(Sender: TObject);
+    procedure MostrarCompromissos;
+    procedure tmrPrincipalTimer(Sender: TObject);
+    procedure dbgrdCompromissosDblClick(Sender: TObject);
+    procedure SetarConfiguracoes;
   private
     { Private declarations }
   public
@@ -31,7 +41,8 @@ implementation
 
 {$R *.dfm}
 
-uses uDM, uGeral, uCadastraCont, uCadastraCompromisso;
+uses uDM, uGeral, uCadastraCont, uCadastraCompromisso, uLogin, ZDataset, uInfosComp,
+  uCadastraBase;
 
 procedure TfrmPrincipal.btnCadContatosClick(Sender: TObject);
 begin
@@ -48,10 +59,6 @@ begin
   if (frmCadastraCont = nil) then
     Application.CreateForm(TfrmCadastraCont,frmCadastraCont);
   frmCadastraCont.ShowModal;
-  with dm do
-  begin
-    zqContatos.Refresh;
-  end;
 end;
 
 procedure TfrmPrincipal.btn1Click(Sender: TObject);
@@ -59,6 +66,71 @@ begin
   if (frmCadastraCompromisso = nil) then
     Application.CreateForm(TfrmCadastraCompromisso,frmCadastraCompromisso);
   frmCadastraCompromisso.ShowModal;
+end;
+
+procedure TfrmPrincipal.Login;
+begin
+  if (frmLogin = nil) then
+    Application.CreateForm(TfrmLogin,frmLogin);
+  frmLogin.SetarTitulo('Login');
+  frmLogin.ShowModal;
+end;
+
+procedure TfrmPrincipal.FormShow(Sender: TObject);
+begin
+  Login;
+  MostrarCompromissos;
+end;
+
+procedure TfrmPrincipal.MostrarCompromissos;
+var
+  vSqlBusca:String;
+begin
+  vSqlBusca := '';
+  vSqlBusca := vSqlBusca  + ' SELECT * FROM TB_COMPROMISSOS_V ';
+  vSqlBusca := vSqlBusca  + ' WHERE DATACOMP = CURDATE() ';
+  if (not chkMostrarTodosComp.Checked) then
+    vSqlBusca := vSqlBusca  + ' AND HORACOMP > CURTIME() '; 
+  with dm.zqryCompromissos do
+  begin
+    Active  := False;
+    SQL.Clear;
+    SQL.Add(vSqlBusca);
+    Active  := True;
+    Refresh;
+  end;
+  dm.conn.Reconnect;
+end;
+
+procedure TfrmPrincipal.tmrPrincipalTimer(Sender: TObject);
+begin
+  MostrarCompromissos;
+end;
+
+procedure TfrmPrincipal.dbgrdCompromissosDblClick(Sender: TObject);
+begin
+  if (frmInfosComp = nil) then
+    Application.CreateForm(TfrmInfosComp,frmInfosComp);
+  with frmInfosComp do
+  begin
+    SetContato(dbgrdCompromissos.Fields[0].AsString);
+    SetData(dbgrdCompromissos.Fields[1].AsDateTime);
+    SetHora(dbgrdCompromissos.Fields[2].AsDateTime);
+    SetDescricao(dbgrdCompromissos.Fields[3].AsString);
+    SetarTitulo('Informações do compromisso');
+    ShowModal;
+  end;
+end;
+
+procedure TfrmPrincipal.SetarConfiguracoes;
+var
+  x:Integer;
+begin
+  for x := 0 to Self.ComponentCount - 1 do
+  begin
+    if (Self.Components[x] is TDBGrid) then
+      TDBGrid(Self.Components[x]).Options := TDBGrid(Self.Components[x]).Options - [dgEditing];
+  end;
 end;
 
 end.

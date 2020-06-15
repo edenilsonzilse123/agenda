@@ -1,5 +1,5 @@
 object frmPrincipal: TfrmPrincipal
-  Left = 373
+  Left = 375
   Top = 134
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
@@ -15,11 +15,12 @@ object frmPrincipal: TfrmPrincipal
   OldCreateOrder = False
   Position = poDesktopCenter
   OnActivate = FormActivate
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object DBGrid1: TDBGrid
     Left = 0
-    Top = 57
+    Top = 61
     Width = 706
     Height = 144
     Align = alTop
@@ -256,7 +257,7 @@ object frmPrincipal: TfrmPrincipal
     Left = 0
     Top = 41
     Width = 706
-    Height = 16
+    Height = 20
     Align = alTop
     Caption = #218'LTIMOS 5 CONTATOS ADICIONADOS'
     Color = clMoneyGreen
@@ -268,5 +269,50 @@ object frmPrincipal: TfrmPrincipal
     ParentBackground = False
     ParentFont = False
     TabOrder = 2
+  end
+  object dbgrdCompromissos: TDBGrid
+    Left = 0
+    Top = 225
+    Width = 706
+    Height = 144
+    Align = alTop
+    DataSource = dm.dsCompromissos
+    TabOrder = 3
+    TitleFont.Charset = DEFAULT_CHARSET
+    TitleFont.Color = clWindowText
+    TitleFont.Height = -11
+    TitleFont.Name = 'Tahoma'
+    TitleFont.Style = []
+    OnDblClick = dbgrdCompromissosDblClick
+  end
+  object pnlCompromissos: TPanel
+    Left = 0
+    Top = 205
+    Width = 706
+    Height = 20
+    Align = alTop
+    Caption = 'COMPROMISSOS DA DATA DE HOJE'
+    Color = clMoneyGreen
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clBlack
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentFont = False
+    TabOrder = 4
+    object chkMostrarTodosComp: TCheckBox
+      Left = 5
+      Top = 1
+      Width = 244
+      Height = 17
+      Caption = 'MOSTRAR TODOS OS COMPROMISSOS'
+      TabOrder = 0
+    end
+  end
+  object tmrPrincipal: TTimer
+    OnTimer = tmrPrincipalTimer
+    Left = 464
+    Top = 400
   end
 end

@@ -59,10 +59,12 @@ begin
     vValores  := vValores + NumeroSql(cbbDDD.Items[cbbDDD.ItemIndex])+',';
     vValores  := vValores + NumeroSql(lbledtTelefone.Text);
     InsereBanco(vTabela,vCampos,vValores);
-    VoltarComitarBanco(1);
     MensagemSucesso(cMensagemSucesso);
+    with dm do
+    begin
+      zqContatos.Refresh;
+    end;
   except
-    VoltarComitarBanco(2);
     MensagemSucesso(cMensagemAtencao);
   end;
 end;

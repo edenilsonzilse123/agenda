@@ -7,7 +7,6 @@ uses
   ZAbstractRODataset, ZAbstractDataset, ZDataset, Forms;
 
 procedure InsereBanco(tabela,campos,valores:String);
-procedure VoltarComitarBanco(nrAcao:Integer);
 procedure MensagemAtencao(dsMensagem:String);
 procedure MensagemSucesso(dsMensagem:String);
 
@@ -17,6 +16,8 @@ function  NumeroSqlNull(str:Integer;zeroNull:Boolean):String;
 function  ComEspaco(texto:String;qtdEspacos:Integer;AmbosLados:Boolean):String;
 function  DataSql(pData:String):String;
 function  HoraSql(pHora:String):String;
+function  LogarAgenda(Login,senha:String):Boolean;
+function  getDataServidor:TDateTime;
 
 implementation
 
@@ -36,14 +37,6 @@ begin
     ExecSQL;
   end;
   FreeAndNil(qryInserir);
-end;
-
-procedure VoltarComitarBanco(nrAcao:Integer);
-begin
-  case nrAcao of
-    1:dm.conn.Commit;
-    2:dm.conn.Rollback;  
-  end;
 end;
 
 procedure MensagemAtencao(dsMensagem:String);
@@ -114,6 +107,40 @@ function  HoraSql(pHora:String):String;
 begin
   Result := '';
   Result := StringSql(Copy(pHora,1,2)+':'+Copy(pHora,3,2)+':00');
+end;
+
+function  LogarAgenda(Login,senha:String):Boolean;
+var
+  zLogin:TZQuery;
+begin
+  zLogin := TZQuery.Create(nil);
+  with zLogin do
+  begin
+    Connection := dm.conn;
+    Close;
+    SQL.Clear;
+    SQL.Add('SELECT COUNT(*) FROM TB_LOGIN WHERE DS_LOGIN = UPPER('+StringSql(Login)+') AND DS_SENHA = UPPER(SHA1(MD5('+StringSql(senha)+')))');
+    Open; First; FetchAll;
+    Result := (Fields[0].AsInteger >= 1);
+  end;
+  FreeAndNil(zLogin);
+end;
+
+function  getDataServidor:TDateTime;
+var
+  zData:TZQuery;
+begin
+  zData := TZQuery.Create(nil);
+  with zData do
+  begin
+    Connection := dm.conn;
+    Close;
+    SQL.Clear;
+    SQL.Add('SELECT NOW() AS DATASERV FROM DUAL');
+    Open;
+    Result := Fields[0].AsDateTime;
+  end;
+  FreeAndNil(zData);
 end;
 
 end.

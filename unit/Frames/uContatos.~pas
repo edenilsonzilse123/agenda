@@ -53,6 +53,7 @@ procedure TfrmContatos.lbledtCodigoContatoDblClick(Sender: TObject);
 begin
   if (frmBuscaContatos = nil) then
     Application.CreateForm(TfrmBuscaContatos,frmBuscaContatos);
+  frmBuscaContatos.SetarTitulo('Buscar contatos');
   frmBuscaContatos.ShowModal;
   lbledtCodigoContato.Text := frmBuscaContatos.getCodigo;
   FreeAndNil(frmBuscaContatos);

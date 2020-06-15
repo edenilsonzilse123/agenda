@@ -61,6 +61,10 @@ begin
     InsereBanco(vTabela,vCampos,vValores);
     VoltarComitarBanco(1);
     MensagemSucesso(cMensagemSucesso);
+    with dm do
+    begin
+      zqContatos.Refresh;
+    end;
   except
     VoltarComitarBanco(2);
     MensagemSucesso(cMensagemAtencao);

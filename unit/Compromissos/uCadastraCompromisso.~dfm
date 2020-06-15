@@ -1,7 +1,8 @@
 inherited frmCadastraCompromisso: TfrmCadastraCompromisso
   Caption = 'frmCadastraCompromisso'
-  ClientHeight = 449
-  ClientWidth = 616
+  ClientHeight = 219
+  ClientWidth = 473
+  OldCreateOrder = True
   PixelsPerInch = 96
   TextHeight = 13
   object lblData: TLabel [0]
@@ -11,11 +12,21 @@ inherited frmCadastraCompromisso: TfrmCadastraCompromisso
     Height = 13
     Caption = 'Data do compromisso'
   end
+  object lblDescComp: TLabel [1]
+    Left = 8
+    Top = 56
+    Width = 160
+    Height = 13
+    Caption = 'Descri'#231#227'o do compromisso (1000)'
+  end
   inherited pnlBotoes: TPanel
-    Top = 404
-    Width = 616
+    Top = 174
+    Width = 473
     inherited btnGravar: TSpeedButton
       OnClick = btnGravarClick
+    end
+    inherited btnCancelar: TSpeedButton
+      Left = 314
     end
   end
   object dtpDataCompromisso: TDateTimePicker
@@ -46,5 +57,15 @@ inherited frmCadastraCompromisso: TfrmCadastraCompromisso
     Width = 236
     Height = 45
     TabOrder = 3
+  end
+  object mmoDesc: TMemo
+    Left = 8
+    Top = 72
+    Width = 457
+    Height = 89
+    MaxLength = 1000
+    ScrollBars = ssVertical
+    TabOrder = 4
+    OnChange = mmoDescChange
   end
 end

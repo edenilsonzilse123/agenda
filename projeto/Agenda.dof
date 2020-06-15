@@ -95,7 +95,7 @@ UnitOutputDir=
 PackageDLLOutputDir=
 PackageDCPOutputDir=
 SearchPath=
-Packages=
+Packages=vcl;rtl;vclx;indy;inet;xmlrtl;vclie;inetdbbde;inetdbxpress;dbrtl;dsnap;dsnapcon;vcldb;soaprtl;VclSmp;dbexpress;dbxcds;inetdb;bdertl;vcldbx;webdsnap;websnap;adortl;ibxpress;teeui;teedb;tee;dss;visualclx;visualdbclx;vclactnband;vclshlctrls;IntrawebDB_50_70;Intraweb_50_70;Rave50CLX;Rave50VCL;dclOfficeXP;ZComponent;ZParseSql;ZCore;ZDbc;ZPlain;JclVcl;Jcl;JvCore;JvSystem;JvStdCtrls;JvAppFrm;JvBands;JvCmp;JvControls;JvCrypt;JvCustom;JvDlgs;JvDocking;qrpt;JvGlobus;JvHMI;JvJans;JvManagedThreads;JvMM;JvNet;JvPageComps;JvPascalInterpreter;JclDeveloperTools;JvPluginSystem;JvPrintPreview;JvRuntimeDesign;JvTimeFramework;JvWizards;JvXPCtrls
 Conditionals=
 DebugSourceDirs=
 UsePackages=0
@@ -134,3 +134,7 @@ OriginalFilename=
 ProductName=
 ProductVersion=1.0.0.0
 Comments=
+[Excluded Packages]
+C:\Program Files (x86)\Borland\Delphi7\Projects\Bpl\JvBDEDesign70.bpl=JVCL BDE Components
+C:\Program Files (x86)\Borland\Delphi7\Projects\Bpl\JvDBDesign70.bpl=JVCL Database Components
+C:\Program Files (x86)\Borland\Delphi7\Projects\Bpl\JvDotNetCtrlsDesign70.bpl=JVCL DotNet Controls

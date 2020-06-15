@@ -1,6 +1,6 @@
 object dm: Tdm
   OldCreateOrder = False
-  Left = 321
+  Left = 322
   Top = 208
   Height = 391
   Width = 543
@@ -75,5 +75,44 @@ object dm: Tdm
     DataSet = zqContatos
     Left = 80
     Top = 72
+  end
+  object zqryCompromissos: TZQuery
+    Connection = conn
+    Active = True
+    SQL.Strings = (
+      'select * from tb_compromissos_v')
+    Params = <>
+    Left = 40
+    Top = 120
+    object strngfldCompromissoscontato: TStringField
+      DisplayLabel = 'Nome do contato'
+      DisplayWidth = 40
+      FieldName = 'contato'
+      ReadOnly = True
+      Size = 200
+    end
+    object dtfldCompromissosdatacomp: TDateField
+      DisplayLabel = 'Data'
+      FieldName = 'datacomp'
+      ReadOnly = True
+    end
+    object tmfldCompromissoshoracomp: TTimeField
+      DisplayLabel = 'Hora'
+      FieldName = 'horacomp'
+      ReadOnly = True
+    end
+    object strngfldCompromissosdesccomp: TStringField
+      DisplayLabel = 'Descri'#231#227'o'
+      DisplayWidth = 40
+      FieldName = 'desccomp'
+      ReadOnly = True
+      Size = 4000
+    end
+  end
+  object dsCompromissos: TDataSource
+    AutoEdit = False
+    DataSet = zqryCompromissos
+    Left = 80
+    Top = 120
   end
 end

@@ -80,6 +80,7 @@ procedure TfrmPrincipal.FormShow(Sender: TObject);
 begin
   Login;
   MostrarCompromissos;
+  SetarConfiguracoes;
 end;
 
 procedure TfrmPrincipal.MostrarCompromissos;

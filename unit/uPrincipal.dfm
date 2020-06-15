@@ -147,7 +147,7 @@ object frmPrincipal: TfrmPrincipal
       OnClick = btnCadContatosClick
     end
     object btn1: TSpeedButton
-      Left = 56
+      Left = 51
       Top = 0
       Width = 51
       Height = 41

@@ -5650,15 +5650,34 @@ CREATE TABLE IF NOT EXISTS `tb_compromissos` (
   PRIMARY KEY (`id`),
   KEY `FK_tb_compromissos_tb_contatos` (`id_contato`),
   CONSTRAINT `FK_tb_compromissos_tb_contatos` FOREIGN KEY (`id_contato`) REFERENCES `tb_contatos` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Copiando dados para a tabela agenda.tb_compromissos: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela agenda.tb_compromissos: ~2 rows (aproximadamente)
 /*!40000 ALTER TABLE `tb_compromissos` DISABLE KEYS */;
 INSERT IGNORE INTO `tb_compromissos` (`id`, `dt_cadastro`, `dt_atualizacao`, `id_contato`, `dt_comp`, `hr_comp`, `desc_comp`) VALUES
 	(1, '2020-06-15 00:57:20', '2020-06-15 05:34:35', 1, '2020-06-15', '06:00:00', 'Teste'),
 	(6, '2020-06-15 08:32:57', NULL, 3, '2020-06-15', '10:00:00', 'Compromisso de teste com carro'),
-	(7, '2020-06-15 09:02:12', NULL, 2, '2020-06-15', '11:00:00', 'Teste comp 2');
+	(7, '2020-06-15 09:02:12', NULL, 2, '2020-06-15', '11:00:00', 'Teste comp 2'),
+	(8, '2020-06-18 08:34:43', NULL, 4, '2020-06-18', '11:00:00', 'Pegar procuração (Cancelamento)');
 /*!40000 ALTER TABLE `tb_compromissos` ENABLE KEYS */;
+
+-- Copiando estrutura para tabela agenda.tb_configuracoes
+DROP TABLE IF EXISTS `tb_configuracoes`;
+CREATE TABLE IF NOT EXISTS `tb_configuracoes` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `dt_cadastro` datetime DEFAULT NULL,
+  `dt_atualizacao` datetime DEFAULT NULL,
+  `mostra_contatos` int DEFAULT '1',
+  `mostra_compromissos` int DEFAULT '1',
+  `mostra_todoscomp` int DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Copiando dados para a tabela agenda.tb_configuracoes: ~1 rows (aproximadamente)
+/*!40000 ALTER TABLE `tb_configuracoes` DISABLE KEYS */;
+INSERT IGNORE INTO `tb_configuracoes` (`id`, `dt_cadastro`, `dt_atualizacao`, `mostra_contatos`, `mostra_compromissos`, `mostra_todoscomp`) VALUES
+	(1, '2020-06-15 10:17:48', '2020-06-21 14:52:41', 1, 1, 1);
+/*!40000 ALTER TABLE `tb_configuracoes` ENABLE KEYS */;
 
 -- Copiando estrutura para tabela agenda.tb_contatos
 DROP TABLE IF EXISTS `tb_contatos`;
@@ -5677,14 +5696,16 @@ CREATE TABLE IF NOT EXISTS `tb_contatos` (
   KEY `FK_tb_contatos_estado` (`estado`),
   CONSTRAINT `FK_tb_contatos_cidade` FOREIGN KEY (`cidade`) REFERENCES `cidade` (`id`),
   CONSTRAINT `FK_tb_contatos_estado` FOREIGN KEY (`estado`) REFERENCES `estado` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Copiando dados para a tabela agenda.tb_contatos: ~2 rows (aproximadamente)
+-- Copiando dados para a tabela agenda.tb_contatos: ~5 rows (aproximadamente)
 /*!40000 ALTER TABLE `tb_contatos` DISABLE KEYS */;
 INSERT IGNORE INTO `tb_contatos` (`id`, `dt_cadastro`, `dt_atualizacao`, `nome`, `endereco`, `cidade`, `estado`, `ddd`, `telefone`) VALUES
 	(1, '2020-06-03 21:59:28', NULL, 'Edenilson Zilse', 'Waldo Klemann', NULL, NULL, NULL, NULL),
 	(2, '2020-06-06 23:02:02', NULL, 'Teste', 'Teste', 4611, 24, NULL, NULL),
-	(3, '2020-06-08 00:11:33', NULL, 'Teste 123', 'Teste 456', 4611, 24, 47, 33876653);
+	(3, '2020-06-08 00:11:33', NULL, 'Teste 123', 'Teste 456', 4611, 24, 47, 33876653),
+	(4, '2020-06-18 08:33:31', NULL, 'Cartório de pomerode', 'R. Luiz Abry, 485', 4611, 24, 47, 33808172),
+	(5, '2020-06-18 08:59:32', NULL, 'teste', 'teste', 4611, 24, 47, 33876653);
 /*!40000 ALTER TABLE `tb_contatos` ENABLE KEYS */;
 
 -- Copiando estrutura para tabela agenda.tb_login
@@ -5739,6 +5760,18 @@ BEGIN
 END//
 DELIMITER ;
 
+-- Copiando estrutura para função agenda.criptografar
+DROP FUNCTION IF EXISTS `criptografar`;
+DELIMITER //
+CREATE FUNCTION `criptografar`(
+	`p_senha` VARCHAR(50)
+) RETURNS text CHARSET utf8mb4
+    DETERMINISTIC
+BEGIN
+	RETURN UPPER(SHA1(MD5(p_senha)));
+END//
+DELIMITER ;
+
 -- Copiando estrutura para função agenda.retornaNomeCidade
 DROP FUNCTION IF EXISTS `retornaNomeCidade`;
 DELIMITER //
@@ -5790,6 +5823,26 @@ DROP TRIGGER IF EXISTS `tb_compromissos_cadastro`;
 SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION';
 DELIMITER //
 CREATE TRIGGER `tb_compromissos_cadastro` BEFORE INSERT ON `tb_compromissos` FOR EACH ROW BEGIN
+	SET NEW.dt_cadastro := NOW();
+END//
+DELIMITER ;
+SET SQL_MODE=@OLDTMP_SQL_MODE;
+
+-- Copiando estrutura para trigger agenda.tb_configuracoes_atualizacao
+DROP TRIGGER IF EXISTS `tb_configuracoes_atualizacao`;
+SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION';
+DELIMITER //
+CREATE TRIGGER `tb_configuracoes_atualizacao` BEFORE UPDATE ON `tb_configuracoes` FOR EACH ROW BEGIN
+	SET NEW.dt_atualizacao := NOW();
+END//
+DELIMITER ;
+SET SQL_MODE=@OLDTMP_SQL_MODE;
+
+-- Copiando estrutura para trigger agenda.tb_configuracoes_cadastro
+DROP TRIGGER IF EXISTS `tb_configuracoes_cadastro`;
+SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION';
+DELIMITER //
+CREATE TRIGGER `tb_configuracoes_cadastro` BEFORE INSERT ON `tb_configuracoes` FOR EACH ROW BEGIN
 	SET NEW.dt_cadastro := NOW();
 END//
 DELIMITER ;

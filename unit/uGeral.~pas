@@ -7,7 +7,7 @@ uses
   ZAbstractRODataset, ZAbstractDataset, ZDataset, Forms;
 
 procedure InsereBanco(tabela,campos,valores:String);
-procedure VoltarComitarBanco(nrAcao:Integer);
+procedure AtualizaBanco(tabela,valores,condicao:String);
 procedure MensagemAtencao(dsMensagem:String);
 procedure MensagemSucesso(dsMensagem:String);
 
@@ -19,6 +19,7 @@ function  DataSql(pData:String):String;
 function  HoraSql(pHora:String):String;
 function  LogarAgenda(Login,senha:String):Boolean;
 function  getDataServidor:TDateTime;
+function  MensagemPergunta(msg:String):Boolean;
 
 implementation
 
@@ -40,9 +41,20 @@ begin
   FreeAndNil(qryInserir);
 end;
 
-procedure VoltarComitarBanco(nrAcao:Integer);
+procedure AtualizaBanco(tabela,valores,condicao:String);
+var
+  qryAtualiza:TZQuery;
 begin
-
+  qryAtualiza := TZQuery.Create(nil);
+  with qryAtualiza do
+  begin
+    Connection := dm.conn;
+    Close;
+    SQL.Clear;
+    SQL.Add('UPDATE ' + tabela + ' SET ' + valores + ' WHERE 1=1 ' + condicao);
+    ExecSQL;
+  end;
+  FreeAndNil(qryAtualiza);
 end;
 
 procedure MensagemAtencao(dsMensagem:String);
@@ -147,6 +159,11 @@ begin
     Result := Fields[0].AsDateTime;
   end;
   FreeAndNil(zData);
+end;
+
+function  MensagemPergunta(msg:String):Boolean;
+begin
+  Result :=  MessageDlg(msg, mtConfirmation, [mbYes, mbNo], 0) = mrYes;
 end;
 
 end.

@@ -15,7 +15,6 @@ type
     procedure FormShow(Sender: TObject);
     procedure SetarBotoes;
     procedure SetarTitulo(dsTitulo:String);
-    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
   public
@@ -47,11 +46,6 @@ end;
 procedure TfrmBase.SetarTitulo(dsTitulo: String);
 begin
   Caption := dsTitulo;
-end;
-
-procedure TfrmBase.FormClose(Sender: TObject; var Action: TCloseAction);
-begin
-  frmBase.Free;
 end;
 
 end.

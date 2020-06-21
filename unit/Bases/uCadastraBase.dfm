@@ -130,7 +130,7 @@ object frmBase: TfrmBase
         FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
     end
     object btnCancelar: TSpeedButton
-      Left = 442
+      Left = 51
       Top = 1
       Width = 51
       Height = 43

@@ -1,7 +1,7 @@
 object dm: Tdm
   OldCreateOrder = False
-  Left = 322
-  Top = 208
+  Left = 544
+  Top = 307
   Height = 391
   Width = 543
   object conn: TZConnection
@@ -113,5 +113,40 @@ object dm: Tdm
     DataSet = zqryCompromissos
     Left = 80
     Top = 120
+  end
+  object zqryConfig: TZQuery
+    Connection = conn
+    Active = True
+    SQL.Strings = (
+      'select * from tb_configuracoes')
+    Params = <>
+    Left = 40
+    Top = 168
+    object intgrfldConfigid: TIntegerField
+      FieldName = 'id'
+      Required = True
+    end
+    object dtmfldConfigdt_cadastro: TDateTimeField
+      FieldName = 'dt_cadastro'
+    end
+    object dtmfldConfigdt_atualizacao: TDateTimeField
+      FieldName = 'dt_atualizacao'
+    end
+    object intgrfldConfigmostra_contatos: TIntegerField
+      FieldName = 'mostra_contatos'
+    end
+    object intgrfldConfigmostra_compromissos: TIntegerField
+      FieldName = 'mostra_compromissos'
+    end
+    object intgrfldConfigmostra_todoscomp: TIntegerField
+      FieldName = 'mostra_todoscomp'
+      ReadOnly = True
+    end
+  end
+  object dsConfig: TDataSource
+    AutoEdit = False
+    DataSet = zqryConfig
+    Left = 80
+    Top = 168
   end
 end

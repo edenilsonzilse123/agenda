@@ -14,7 +14,8 @@ uses
   uBuscaContatos in '..\unit\Buscas\uBuscaContatos.pas' {frmBuscaContatos},
   uCadastraCompromisso in '..\unit\Compromissos\uCadastraCompromisso.pas' {frmCadastraCompromisso},
   uLogin in '..\unit\Login\uLogin.pas' {frmLogin},
-  uInfosComp in '..\unit\Informacoes\uInfosComp.pas' {frmInfosComp};
+  uInfosComp in '..\unit\Informacoes\uInfosComp.pas' {frmInfosComp},
+  uConfig in '..\unit\Configuracoes\uConfig.pas' {frmConfig};
 
 {$R *.res}
 
@@ -22,5 +23,6 @@ begin
   Application.Initialize;
   Application.CreateForm(Tdm, dm);
   Application.CreateForm(TfrmPrincipal, frmPrincipal);
+  Application.CreateForm(TfrmConfig, frmConfig);
   Application.Run;
 end.

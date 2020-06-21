@@ -9,15 +9,16 @@ uses
 
 type
   TfrmPrincipal = class(TForm)
-    DBGrid1: TDBGrid;
+    dbgrdContatos: TDBGrid;
     pnlBotoes: TPanel;
-    pnlTituloCompHoje: TPanel;
+    pnlContatos: TPanel;
     btnCadContatos: TSpeedButton;
     btn1: TSpeedButton;
     dbgrdCompromissos: TDBGrid;
     pnlCompromissos: TPanel;
     chkMostrarTodosComp: TCheckBox;
     tmrPrincipal: TTimer;
+    btnConfig: TSpeedButton;
     procedure FormActivate(Sender: TObject);
     procedure NovoContato;
     procedure btnCadContatosClick(Sender: TObject);
@@ -28,6 +29,7 @@ type
     procedure tmrPrincipalTimer(Sender: TObject);
     procedure dbgrdCompromissosDblClick(Sender: TObject);
     procedure SetarConfiguracoes;
+    procedure btnConfigClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -42,7 +44,7 @@ implementation
 {$R *.dfm}
 
 uses uDM, uGeral, uCadastraCont, uCadastraCompromisso, uLogin, ZDataset, uInfosComp,
-  uCadastraBase;
+  uCadastraBase, uConfig;
 
 procedure TfrmPrincipal.btnCadContatosClick(Sender: TObject);
 begin
@@ -59,6 +61,11 @@ begin
   if (frmCadastraCont = nil) then
     Application.CreateForm(TfrmCadastraCont,frmCadastraCont);
   frmCadastraCont.ShowModal;
+  with dm do
+  begin
+    zqContatos.Close;
+    zqContatos.Open;
+  end;
 end;
 
 procedure TfrmPrincipal.btn1Click(Sender: TObject);
@@ -110,28 +117,55 @@ end;
 
 procedure TfrmPrincipal.dbgrdCompromissosDblClick(Sender: TObject);
 begin
-  if (frmInfosComp = nil) then
-    Application.CreateForm(TfrmInfosComp,frmInfosComp);
-  with frmInfosComp do
+  if (dm.zqryCompromissos.RecordCount > 1) then
   begin
-    SetContato(dbgrdCompromissos.Fields[0].AsString);
-    SetData(dbgrdCompromissos.Fields[1].AsDateTime);
-    SetHora(dbgrdCompromissos.Fields[2].AsDateTime);
-    SetDescricao(dbgrdCompromissos.Fields[3].AsString);
-    SetarTitulo('Informações do compromisso');
-    ShowModal;
+    if (frmInfosComp = nil) then
+      Application.CreateForm(TfrmInfosComp,frmInfosComp);
+    with frmInfosComp do
+    begin
+      SetContato(dbgrdCompromissos.Fields[0].AsString);
+      SetData(dbgrdCompromissos.Fields[1].AsDateTime);
+      SetHora(dbgrdCompromissos.Fields[2].AsDateTime);
+      SetDescricao(dbgrdCompromissos.Fields[3].AsString);
+      SetarTitulo('Informações do compromisso');
+      ShowModal;
+    end;
   end;
 end;
 
 procedure TfrmPrincipal.SetarConfiguracoes;
 var
   x:Integer;
+  vMostraCont,vMostraComp,vMostraTodos:Boolean;
 begin
   for x := 0 to Self.ComponentCount - 1 do
   begin
     if (Self.Components[x] is TDBGrid) then
       TDBGrid(Self.Components[x]).Options := TDBGrid(Self.Components[x]).Options - [dgEditing];
   end;
+  with dm.zqryConfig do
+  begin
+    Active := False;
+    SQL.Clear;
+    SQL.Add('SELECT * FROM TB_CONFIGURACOES WHERE ID = 1');
+    Active := True;
+    vMostraCont   := FieldByName('mostra_contatos').AsInteger = 1;
+    vMostraComp   := FieldByName('mostra_compromissos').AsInteger = 1;
+    vMostraTodos  := FieldByName('mostra_todoscomp').AsInteger = 1;
+
+    dbgrdCompromissos.Visible := vMostraComp;
+    pnlCompromissos.Visible   := vMostraComp;
+    dbgrdContatos.Visible     := vMostraCont;
+    pnlContatos.Visible       := vMostraCont;
+  end;
+end;
+
+procedure TfrmPrincipal.btnConfigClick(Sender: TObject);
+begin
+  if (frmConfig = nil) then
+    Application.CreateForm(TfrmConfig,frmConfig);
+  frmConfig.SetarTitulo('Configurações');
+  frmConfig.ShowModal;
 end;
 
 end.

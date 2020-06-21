@@ -137,7 +137,7 @@ begin
     Connection := dm.conn;
     Close;
     SQL.Clear;
-    SQL.Add('SELECT COUNT(*) FROM TB_LOGIN WHERE DS_LOGIN = UPPER('+StringSql(Login)+') AND DS_SENHA = UPPER(SHA1(MD5('+StringSql(senha)+')))');
+    SQL.Add('SELECT COUNT(*) FROM TB_LOGIN WHERE DS_LOGIN = UPPER('+StringSql(Login)+') AND DS_SENHA = CRIPTOGRAFAR('+StringSql(senha)+')');
     Open; First; FetchAll;
     Result := (Fields[0].AsInteger >= 1);
   end;

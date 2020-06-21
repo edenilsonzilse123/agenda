@@ -450,6 +450,7 @@ object frmPrincipal: TfrmPrincipal
     end
   end
   object tmrPrincipal: TTimer
+    Enabled = False
     OnTimer = tmrPrincipalTimer
     Left = 464
     Top = 400

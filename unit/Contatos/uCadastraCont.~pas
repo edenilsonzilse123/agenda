@@ -60,10 +60,6 @@ begin
     vValores  := vValores + NumeroSql(lbledtTelefone.Text);
     InsereBanco(vTabela,vCampos,vValores);
     MensagemSucesso(cMensagemSucesso);
-    with dm do
-    begin
-      zqContatos.Refresh;
-    end;
   except
     MensagemSucesso(cMensagemAtencao);
   end;

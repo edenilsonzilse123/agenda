@@ -26,6 +26,7 @@ type
     procedure Login;
     procedure FormShow(Sender: TObject);
     procedure MostrarCompromissos;
+    procedure MostrarContatos;
     procedure tmrPrincipalTimer(Sender: TObject);
     procedure dbgrdCompromissosDblClick(Sender: TObject);
     procedure SetarConfiguracoes;
@@ -49,6 +50,7 @@ uses uDM, uGeral, uCadastraCont, uCadastraCompromisso, uLogin, ZDataset, uInfosC
 procedure TfrmPrincipal.btnCadContatosClick(Sender: TObject);
 begin
   NovoContato;
+  MostrarContatos;
 end;
 
 procedure TfrmPrincipal.FormActivate(Sender: TObject);
@@ -61,11 +63,6 @@ begin
   if (frmCadastraCont = nil) then
     Application.CreateForm(TfrmCadastraCont,frmCadastraCont);
   frmCadastraCont.ShowModal;
-  with dm do
-  begin
-    zqContatos.Close;
-    zqContatos.Open;
-  end;
 end;
 
 procedure TfrmPrincipal.btn1Click(Sender: TObject);
@@ -88,6 +85,8 @@ begin
   Login;
   MostrarCompromissos;
   SetarConfiguracoes;
+  MostrarContatos;
+  tmrPrincipal.Enabled := True;
 end;
 
 procedure TfrmPrincipal.MostrarCompromissos;
@@ -167,6 +166,23 @@ begin
     Application.CreateForm(TfrmConfig,frmConfig);
   frmConfig.SetarTitulo('Configurações');
   frmConfig.ShowModal;
+end;
+
+procedure TfrmPrincipal.MostrarContatos;
+var
+  vSqlBusca:String;
+begin
+  vSqlBusca := '';
+  vSqlBusca := vSqlBusca  + ' SELECT * FROM TB_CONTATOS_V ';
+  with dm.zqContatos do
+  begin
+    Active  := False;
+    SQL.Clear;
+    SQL.Add(vSqlBusca);
+    Active  := True;
+    Refresh;
+  end;
+  dm.conn.Reconnect;
 end;
 
 end.

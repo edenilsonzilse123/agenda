@@ -26,6 +26,7 @@ type
     procedure Login;
     procedure FormShow(Sender: TObject);
     procedure MostrarCompromissos;
+    procedure MostrarContatos;
     procedure tmrPrincipalTimer(Sender: TObject);
     procedure dbgrdCompromissosDblClick(Sender: TObject);
     procedure SetarConfiguracoes;
@@ -61,11 +62,6 @@ begin
   if (frmCadastraCont = nil) then
     Application.CreateForm(TfrmCadastraCont,frmCadastraCont);
   frmCadastraCont.ShowModal;
-  with dm do
-  begin
-    zqContatos.Close;
-    zqContatos.Open;
-  end;
 end;
 
 procedure TfrmPrincipal.btn1Click(Sender: TObject);
@@ -88,6 +84,8 @@ begin
   Login;
   MostrarCompromissos;
   SetarConfiguracoes;
+  MostrarContatos;
+  tmrPrincipal.Enabled := True;
 end;
 
 procedure TfrmPrincipal.MostrarCompromissos;
@@ -113,6 +111,7 @@ end;
 procedure TfrmPrincipal.tmrPrincipalTimer(Sender: TObject);
 begin
   MostrarCompromissos;
+  MostrarContatos;
 end;
 
 procedure TfrmPrincipal.dbgrdCompromissosDblClick(Sender: TObject);
@@ -153,10 +152,11 @@ begin
     vMostraComp   := FieldByName('mostra_compromissos').AsInteger = 1;
     vMostraTodos  := FieldByName('mostra_todoscomp').AsInteger = 1;
 
-    dbgrdCompromissos.Visible := vMostraComp;
-    pnlCompromissos.Visible   := vMostraComp;
-    dbgrdContatos.Visible     := vMostraCont;
-    pnlContatos.Visible       := vMostraCont;
+    dbgrdCompromissos.Visible   := vMostraComp;
+    pnlCompromissos.Visible     := vMostraComp;
+    dbgrdContatos.Visible       := vMostraCont;
+    pnlContatos.Visible         := vMostraCont;
+    chkMostrarTodosComp.Checked := vMostraTodos;
   end;
 end;
 
@@ -166,6 +166,23 @@ begin
     Application.CreateForm(TfrmConfig,frmConfig);
   frmConfig.SetarTitulo('Configurações');
   frmConfig.ShowModal;
+end;
+
+procedure TfrmPrincipal.MostrarContatos;
+var
+  vSqlBusca:String;
+begin
+  vSqlBusca := '';
+  vSqlBusca := vSqlBusca  + ' SELECT * FROM TB_CONTATOS_V ';
+  with dm.zqContatos do
+  begin
+    Active  := False;
+    SQL.Clear;
+    SQL.Add(vSqlBusca);
+    Active  := True;
+    Refresh;
+  end;
+  dm.conn.Reconnect;
 end;
 
 end.

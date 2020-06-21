@@ -163,7 +163,8 @@ end;
 
 function  MensagemPergunta(msg:String):Boolean;
 begin
-  Result :=  MessageDlg(msg, mtConfirmation, [mbYes, mbNo], 0) = mrYes;
+  Result := Application.MessageBox(PChar(msg), PChar(Application.Title), MB_YESNO +
+    MB_ICONQUESTION) = IDYES;
 end;
 
 end.

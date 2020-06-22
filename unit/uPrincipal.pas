@@ -19,6 +19,7 @@ type
     chkMostrarTodosComp: TCheckBox;
     tmrPrincipal: TTimer;
     btnConfig: TSpeedButton;
+    btnNovaSenha: TSpeedButton;
     procedure FormActivate(Sender: TObject);
     procedure NovoContato;
     procedure btnCadContatosClick(Sender: TObject);
@@ -31,6 +32,7 @@ type
     procedure dbgrdCompromissosDblClick(Sender: TObject);
     procedure SetarConfiguracoes;
     procedure btnConfigClick(Sender: TObject);
+    procedure btnNovaSenhaClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -46,7 +48,7 @@ implementation
 {$R *.dfm}
 
 uses uDM, uGeral, uCadastraCont, uCadastraCompromisso, uLogin, ZDataset, uInfosComp,
-  uCadastraBase, uConfig, StrUtils;
+  uCadastraBase, uConfig, StrUtils, uTrocaSenha;
 
 procedure TfrmPrincipal.btnCadContatosClick(Sender: TObject);
 begin
@@ -178,6 +180,14 @@ begin
     Refresh;
   end;
   dm.conn.Reconnect;
+end;
+
+procedure TfrmPrincipal.btnNovaSenhaClick(Sender: TObject);
+begin
+  if (frmTrocaSenha = nil) then
+    Application.CreateForm(TfrmTrocaSenha,frmTrocaSenha);
+  frmTrocaSenha.SetarTitulo('Trocar senha do usuário');
+  frmTrocaSenha.ShowModal;
 end;
 
 end.

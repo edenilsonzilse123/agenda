@@ -1,0 +1,46 @@
+inherited frmTrocaSenha: TfrmTrocaSenha
+  Caption = 'frmTrocaSenha'
+  ClientHeight = 164
+  ClientWidth = 194
+  PixelsPerInch = 96
+  TextHeight = 13
+  inherited pnlBotoes: TPanel
+    Top = 119
+    Width = 194
+    inherited btnGravar: TSpeedButton
+      OnClick = btnGravarClick
+    end
+  end
+  object lbledtSenha: TLabeledEdit
+    Left = 8
+    Top = 24
+    Width = 177
+    Height = 21
+    EditLabel.Width = 61
+    EditLabel.Height = 13
+    EditLabel.Caption = 'Nova senha:'
+    PasswordChar = '*'
+    TabOrder = 1
+  end
+  object lbledtSenhaNova: TLabeledEdit
+    Left = 8
+    Top = 64
+    Width = 177
+    Height = 21
+    EditLabel.Width = 76
+    EditLabel.Height = 13
+    EditLabel.Caption = 'Repita a senha:'
+    PasswordChar = '*'
+    TabOrder = 2
+    OnExit = lbledtSenhaNovaExit
+  end
+  object btnRedefineMaster: TButton
+    Left = 8
+    Top = 88
+    Width = 177
+    Height = 25
+    Caption = 'Redefinir senha para "master"'
+    TabOrder = 3
+    OnClick = btnRedefineMasterClick
+  end
+end

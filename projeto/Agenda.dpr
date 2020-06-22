@@ -15,7 +15,8 @@ uses
   uCadastraCompromisso in '..\unit\Compromissos\uCadastraCompromisso.pas' {frmCadastraCompromisso},
   uLogin in '..\unit\Login\uLogin.pas' {frmLogin},
   uInfosComp in '..\unit\Informacoes\uInfosComp.pas' {frmInfosComp},
-  uConfig in '..\unit\Configuracoes\uConfig.pas' {frmConfig};
+  uConfig in '..\unit\Configuracoes\uConfig.pas' {frmConfig},
+  uTrocaSenha in '..\unit\Senha\uTrocaSenha.pas' {frmTrocaSenha};
 
 {$R *.res}
 
@@ -23,6 +24,5 @@ begin
   Application.Initialize;
   Application.CreateForm(Tdm, dm);
   Application.CreateForm(TfrmPrincipal, frmPrincipal);
-  Application.CreateForm(TfrmConfig, frmConfig);
   Application.Run;
 end.

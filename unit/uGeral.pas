@@ -22,6 +22,7 @@ function  getDataServidor:TDateTime;
 function  MensagemPergunta(msg:String):Boolean;
 function  PrimeiraMaiuscula(dsTexto:String):String;
 function  GetValorParametro(nomeParametro:String):Boolean;
+function  EhIgualS(v1,v2:String):Boolean;
 
 implementation
 
@@ -184,6 +185,11 @@ begin
     Active := True;
     Result := FieldByName(nomeParametro).AsInteger = 1;
   end;
+end;
+
+function  EhIgualS(v1,v2:String):Boolean;
+begin
+  Result := (v1 = v2);
 end;
 
 end.

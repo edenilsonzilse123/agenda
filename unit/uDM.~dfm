@@ -21,6 +21,7 @@ object dm: Tdm
   end
   object zqContatos: TZQuery
     Connection = conn
+    Active = True
     SQL.Strings = (
       'select * from tb_contatos_v')
     Params = <>
@@ -67,6 +68,11 @@ object dm: Tdm
       ReadOnly = True
       Size = 44
     end
+    object strngfldContatosATIVO: TStringField
+      FieldName = 'ATIVO'
+      ReadOnly = True
+      Size = 4
+    end
   end
   object dsContatos: TDataSource
     AutoEdit = False
@@ -76,6 +82,7 @@ object dm: Tdm
   end
   object zqryCompromissos: TZQuery
     Connection = conn
+    Active = True
     SQL.Strings = (
       'select * from tb_compromissos_v')
     Params = <>
@@ -114,31 +121,12 @@ object dm: Tdm
   end
   object zqryConfig: TZQuery
     Connection = conn
+    Active = True
     SQL.Strings = (
       'select * from tb_configuracoes')
     Params = <>
     Left = 40
     Top = 168
-    object intgrfldConfigid: TIntegerField
-      FieldName = 'id'
-      Required = True
-    end
-    object dtmfldConfigdt_cadastro: TDateTimeField
-      FieldName = 'dt_cadastro'
-    end
-    object dtmfldConfigdt_atualizacao: TDateTimeField
-      FieldName = 'dt_atualizacao'
-    end
-    object intgrfldConfigmostra_contatos: TIntegerField
-      FieldName = 'mostra_contatos'
-    end
-    object intgrfldConfigmostra_compromissos: TIntegerField
-      FieldName = 'mostra_compromissos'
-    end
-    object intgrfldConfigmostra_todoscomp: TIntegerField
-      FieldName = 'mostra_todoscomp'
-      ReadOnly = True
-    end
   end
   object dsConfig: TDataSource
     AutoEdit = False

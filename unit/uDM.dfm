@@ -68,6 +68,12 @@ object dm: Tdm
       ReadOnly = True
       Size = 44
     end
+    object strngfldContatosATIVO: TStringField
+      FieldName = 'ATIVO'
+      ReadOnly = True
+      Visible = False
+      Size = 4
+    end
   end
   object dsContatos: TDataSource
     AutoEdit = False
@@ -122,26 +128,6 @@ object dm: Tdm
     Params = <>
     Left = 40
     Top = 168
-    object intgrfldConfigid: TIntegerField
-      FieldName = 'id'
-      Required = True
-    end
-    object dtmfldConfigdt_cadastro: TDateTimeField
-      FieldName = 'dt_cadastro'
-    end
-    object dtmfldConfigdt_atualizacao: TDateTimeField
-      FieldName = 'dt_atualizacao'
-    end
-    object intgrfldConfigmostra_contatos: TIntegerField
-      FieldName = 'mostra_contatos'
-    end
-    object intgrfldConfigmostra_compromissos: TIntegerField
-      FieldName = 'mostra_compromissos'
-    end
-    object intgrfldConfigmostra_todoscomp: TIntegerField
-      FieldName = 'mostra_todoscomp'
-      ReadOnly = True
-    end
   end
   object dsConfig: TDataSource
     AutoEdit = False

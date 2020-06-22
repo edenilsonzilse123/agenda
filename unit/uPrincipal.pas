@@ -39,13 +39,14 @@ type
 
 var
   frmPrincipal: TfrmPrincipal;
+  vMostraInativos:Boolean;
 
 implementation
 
 {$R *.dfm}
 
 uses uDM, uGeral, uCadastraCont, uCadastraCompromisso, uLogin, ZDataset, uInfosComp,
-  uCadastraBase, uConfig;
+  uCadastraBase, uConfig, StrUtils;
 
 procedure TfrmPrincipal.btnCadContatosClick(Sender: TObject);
 begin
@@ -142,22 +143,15 @@ begin
     if (Self.Components[x] is TDBGrid) then
       TDBGrid(Self.Components[x]).Options := TDBGrid(Self.Components[x]).Options - [dgEditing];
   end;
-  with dm.zqryConfig do
-  begin
-    Active := False;
-    SQL.Clear;
-    SQL.Add('SELECT * FROM TB_CONFIGURACOES WHERE ID = 1');
-    Active := True;
-    vMostraCont   := FieldByName('mostra_contatos').AsInteger = 1;
-    vMostraComp   := FieldByName('mostra_compromissos').AsInteger = 1;
-    vMostraTodos  := FieldByName('mostra_todoscomp').AsInteger = 1;
-
-    dbgrdCompromissos.Visible   := vMostraComp;
-    pnlCompromissos.Visible     := vMostraComp;
-    dbgrdContatos.Visible       := vMostraCont;
-    pnlContatos.Visible         := vMostraCont;
-    chkMostrarTodosComp.Checked := vMostraTodos;
-  end;
+  vMostraCont                 := GetValorParametro('mostra_contatos');
+  vMostraComp                 := GetValorParametro('mostra_compromissos');
+  vMostraTodos                := GetValorParametro('mostra_todoscomp');
+  vMostraInativos             := GetValorParametro('mostra_contatosinativos');
+  dbgrdCompromissos.Visible   := vMostraComp;
+  pnlCompromissos.Visible     := vMostraComp;
+  dbgrdContatos.Visible       := vMostraCont;
+  pnlContatos.Visible         := vMostraCont;
+  chkMostrarTodosComp.Checked := vMostraTodos;
 end;
 
 procedure TfrmPrincipal.btnConfigClick(Sender: TObject);
@@ -174,6 +168,7 @@ var
 begin
   vSqlBusca := '';
   vSqlBusca := vSqlBusca  + ' SELECT * FROM TB_CONTATOS_V ';
+  vSqlBusca := vSqlBusca  + IfThen(vMostraInativos,'',' WHERE ATIVO = ''S''');
   with dm.zqContatos do
   begin
     Active  := False;

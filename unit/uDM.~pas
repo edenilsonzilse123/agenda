@@ -24,12 +24,7 @@ type
     strngfldCompromissosdesccomp: TStringField;
     zqryConfig: TZQuery;
     dsConfig: TDataSource;
-    intgrfldConfigid: TIntegerField;
-    dtmfldConfigdt_cadastro: TDateTimeField;
-    dtmfldConfigdt_atualizacao: TDateTimeField;
-    intgrfldConfigmostra_contatos: TIntegerField;
-    intgrfldConfigmostra_compromissos: TIntegerField;
-    intgrfldConfigmostra_todoscomp: TIntegerField;
+    strngfldContatosATIVO: TStringField;
   private
     { Private declarations }
   public

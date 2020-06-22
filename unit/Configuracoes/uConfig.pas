@@ -11,6 +11,7 @@ type
     chkMostraContatos: TCheckBox;
     chkMostraCompromisso: TCheckBox;
     chkMostraTodosComp: TCheckBox;
+    chkMostraInativos: TCheckBox;
     procedure btnCancelarClick(Sender: TObject);
     procedure btnGravarClick(Sender: TObject);
     procedure CarregaConfigAtual;
@@ -42,12 +43,13 @@ var
   vTabela,vValores,vCondicao:String;
 begin
   inherited;
-  if (MensagemPergunta('Deseja mesmo alterar as configurações?')) then
+  if (MensagemPergunta('deseja MESMO alterar as configurações?')) then
   begin
     vTabela   := 'TB_CONFIGURACOES';
-    vValores  := 'MOSTRA_CONTATOS = '                 + IfThen(chkMostraContatos.Checked,'1','0')+',';
-    vValores  := vValores + 'MOSTRA_COMPROMISSOS = '  + IfThen(chkMostraCompromisso.Checked,'1','0')+',';
-    vValores  := vValores + 'MOSTRA_TODOSCOMP = '     + IfThen(chkMostraTodosComp.Checked,'1','0');
+    vValores  := 'MOSTRA_CONTATOS = '                     + IfThen(chkMostraContatos.Checked,'1','0')+',';
+    vValores  := vValores + 'MOSTRA_COMPROMISSOS = '      + IfThen(chkMostraCompromisso.Checked,'1','0')+',';
+    vValores  := vValores + 'MOSTRA_TODOSCOMP = '         + IfThen(chkMostraTodosComp.Checked,'1','0')+',';
+    vValores  := vValores + 'MOSTRA_CONTATOSINATIVOS = '  + IfThen(chkMostraInativos.Checked,'1','0');
     vCondicao := ' AND ID = 1 ';
     try
       AtualizaBanco(vTabela,vValores,vCondicao);
@@ -66,9 +68,10 @@ begin
     SQL.Clear;
     SQL.Add('SELECT * FROM TB_CONFIGURACOES WHERE ID = 1');
     Active := True;
-    chkMostraContatos.Checked     := FieldByName('mostra_contatos').AsInteger = 1;
-    chkMostraCompromisso.Checked  := FieldByName('mostra_compromissos').AsInteger = 1;
-    chkMostraTodosComp.Checked    := FieldByName('mostra_todoscomp').AsInteger = 1;
+    chkMostraContatos.Checked     := FieldByName('MOSTRA_CONTATOS').AsInteger = 1;
+    chkMostraCompromisso.Checked  := FieldByName('MOSTRA_COMPROMISSOS').AsInteger = 1;
+    chkMostraTodosComp.Checked    := FieldByName('MOSTRA_TODOSCOMP').AsInteger = 1;
+    chkMostraInativos.Checked     := FieldByName('MOSTRA_CONTATOSINATIVOS').AsInteger = 1;
   end;
 end;
 

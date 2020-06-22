@@ -20,6 +20,8 @@ function  HoraSql(pHora:String):String;
 function  LogarAgenda(Login,senha:String):Boolean;
 function  getDataServidor:TDateTime;
 function  MensagemPergunta(msg:String):Boolean;
+function  PrimeiraMaiuscula(dsTexto:String):String;
+function  GetValorParametro(nomeParametro:String):Boolean;
 
 implementation
 
@@ -163,8 +165,25 @@ end;
 
 function  MensagemPergunta(msg:String):Boolean;
 begin
-  Result := Application.MessageBox(PChar(msg), PChar(Application.Title), MB_YESNO +
+  Result := Application.MessageBox(PChar(PrimeiraMaiuscula(msg)), PChar(Application.Title), MB_YESNO +
     MB_ICONQUESTION) = IDYES;
+end;
+
+function  PrimeiraMaiuscula(dsTexto:String):String;
+begin
+  Result := AnsiUpperCase(Copy(dsTexto,1,1))+AnsiLowerCase(Copy(dsTexto,2,Length(dsTexto)));
+end;
+
+function  GetValorParametro(nomeParametro:String):Boolean;
+begin
+  with dm.zqryConfig do
+  begin
+    Active := False;
+    SQL.Clear;
+    SQL.Add('SELECT ' + nomeParametro + ' FROM TB_CONFIGURACOES WHERE ID = 1');
+    Active := True;
+    Result := FieldByName(nomeParametro).AsInteger = 1;
+  end;
 end;
 
 end.

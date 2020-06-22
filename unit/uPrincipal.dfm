@@ -398,7 +398,7 @@ object frmPrincipal: TfrmPrincipal
     Width = 706
     Height = 20
     Align = alTop
-    Caption = #218'LTIMOS 5 CONTATOS ADICIONADOS'
+    Caption = #218'LTIMOS CONTATOS ADICIONADOS'
     Color = clMoneyGreen
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clBlack

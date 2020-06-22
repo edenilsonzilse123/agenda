@@ -71,4 +71,12 @@ inherited frmCadastraCont: TfrmCadastraCont
     TabOrder = 5
     OnKeyPress = lbledtTelefoneKeyPress
   end
+  object chkAtivo: TCheckBox
+    Left = 168
+    Top = 151
+    Width = 97
+    Height = 17
+    Caption = 'Ativo'
+    TabOrder = 6
+  end
 end

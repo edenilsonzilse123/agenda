@@ -5,7 +5,7 @@ interface
 uses
   Messages, SysUtils, Variants, Classes, Graphics,
   Controls, Forms, Dialogs, uCadastraBase, Buttons, ExtCtrls,
-  StdCtrls, uCidades;
+  StdCtrls, uCidades, StrUtils;
 
 type
   TfrmCadastraCont = class(TfrmBase)
@@ -15,6 +15,7 @@ type
     cbbDDD: TComboBox;
     lblDDD: TLabel;
     lbledtTelefone: TLabeledEdit;
+    chkAtivo: TCheckBox;
     procedure btnCancelarClick(Sender: TObject);
     procedure btnGravarClick(Sender: TObject);
     procedure DDDs;
@@ -52,12 +53,13 @@ begin
   inherited;
   try
     vTabela   := 'TB_CONTATOS';
-    vCampos   := 'NOME,ENDERECO,CIDADE,ESTADO,DDD,TELEFONE';
+    vCampos   := 'NOME,ENDERECO,CIDADE,ESTADO,DDD,TELEFONE,IS_ATIVO';
     vValores  := StringSql(lbledtNome.Text)+','+StringSql(lbledtEndereco.Text)+',';
     vValores  := vValores + NumeroSql(IntToStr(frmcdsCidade.getCodigoCidade))+',';
     vValores  := vValores + NumeroSql(IntToStr(frmcdsCidade.getCodigoEstado))+',';
     vValores  := vValores + NumeroSql(cbbDDD.Items[cbbDDD.ItemIndex])+',';
-    vValores  := vValores + NumeroSql(lbledtTelefone.Text);
+    vValores  := vValores + NumeroSql(lbledtTelefone.Text)+',';
+    vValores  := vValores + StringSql(IfThen(chkAtivo.Checked,'S','N'));
     InsereBanco(vTabela,vCampos,vValores);
     MensagemSucesso(cMensagemSucesso);
   except

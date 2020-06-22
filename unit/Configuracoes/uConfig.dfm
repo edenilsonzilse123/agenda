@@ -1,5 +1,5 @@
 inherited frmConfig: TfrmConfig
-  Caption = 'frmConfig'
+  Caption = 'al '
   OldCreateOrder = True
   OnActivate = FormActivate
   PixelsPerInch = 96
@@ -32,5 +32,13 @@ inherited frmConfig: TfrmConfig
     Height = 17
     Caption = 'Mostrar TODOS os compromissos'
     TabOrder = 3
+  end
+  object chkMostraInativos: TCheckBox
+    Left = 8
+    Top = 59
+    Width = 185
+    Height = 17
+    Caption = 'Mostrar contatos inativos'
+    TabOrder = 4
   end
 end

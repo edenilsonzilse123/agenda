@@ -10,6 +10,7 @@ procedure InsereBanco(tabela,campos,valores:String);
 procedure AtualizaBanco(tabela,valores,condicao:String);
 procedure MensagemAtencao(dsMensagem:String);
 procedure MensagemSucesso(dsMensagem:String);
+procedure AtualizarQuery(qrAtualizar:TZQuery);
 
 function  StringSql(str:String):String;
 function  NumeroSql(str:String):String;
@@ -22,6 +23,10 @@ function  getDataServidor:TDateTime;
 function  MensagemPergunta(msg:String):Boolean;
 function  PrimeiraMaiuscula(dsTexto:String):String;
 function  GetValorParametro(nomeParametro:String):Boolean;
+function  EhIgualS(v1,v2:String):Boolean;
+
+var
+  vCodigoUsuario:Integer;
 
 implementation
 
@@ -69,6 +74,12 @@ procedure MensagemSucesso(dsMensagem:String);
 begin
   Application.MessageBox(PChar(dsMensagem), PChar(Application.Title), MB_OK + 
     MB_ICONINFORMATION);
+end;
+
+procedure AtualizarQuery(qrAtualizar:TZQuery);
+begin
+  qrAtualizar.Close;
+  qrAtualizar.Open;
 end;
 
 function  StringSql(str:String):String;
@@ -139,9 +150,10 @@ begin
     Connection := dm.conn;
     Close;
     SQL.Clear;
-    SQL.Add('SELECT COUNT(*) FROM TB_LOGIN WHERE DS_LOGIN = UPPER('+StringSql(Login)+') AND DS_SENHA = CRIPTOGRAFAR('+StringSql(senha)+')');
+    SQL.Add('SELECT * FROM TB_LOGIN WHERE DS_LOGIN = UPPER('+StringSql(Login)+') AND DS_SENHA = CRIPTOGRAFAR('+StringSql(senha)+')');
     Open; First; FetchAll;
-    Result := (Fields[0].AsInteger >= 1);
+    vCodigoUsuario := FieldByName('id').AsInteger;
+    Result := (RecordCount >= 1);
   end;
   FreeAndNil(zLogin);
 end;
@@ -184,6 +196,11 @@ begin
     Active := True;
     Result := FieldByName(nomeParametro).AsInteger = 1;
   end;
+end;
+
+function  EhIgualS(v1,v2:String):Boolean;
+begin
+  Result := (v1 = v2);
 end;
 
 end.

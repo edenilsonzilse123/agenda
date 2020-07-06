@@ -16,7 +16,8 @@ uses
   uLogin in '..\unit\Login\uLogin.pas' {frmLogin},
   uInfosComp in '..\unit\Informacoes\uInfosComp.pas' {frmInfosComp},
   uConfig in '..\unit\Configuracoes\uConfig.pas' {frmConfig},
-  uTrocaSenha in '..\unit\Senha\uTrocaSenha.pas' {frmTrocaSenha};
+  uTrocaSenha in '..\unit\Senha\uTrocaSenha.pas' {frmTrocaSenha},
+  uCadTipoComp in '..\unit\TipoCompromisso\uCadTipoComp.pas' {frmCadTipoComp};
 
 {$R *.res}
 
@@ -24,5 +25,6 @@ begin
   Application.Initialize;
   Application.CreateForm(Tdm, dm);
   Application.CreateForm(TfrmPrincipal, frmPrincipal);
+  Application.CreateForm(TfrmCadTipoComp, frmCadTipoComp);
   Application.Run;
 end.

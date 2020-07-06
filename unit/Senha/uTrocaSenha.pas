@@ -77,7 +77,7 @@ var
 begin
   vValoresAt := 'DS_SENHA = CRIPTOGRAFAR(' + StringSql(novaSenha) + ')';
   try
-    AtualizaBanco('TB_LOGIN',vValoresAt,' AND ID = 1');
+    AtualizaBanco('TB_LOGIN',vValoresAt,' AND ID = ' + IntToStr(vCodigoUsuario));
     MensagemSucesso('Senha alterada com sucesso');
   except
     MensagemAtencao('Senha não pode ser alterada');

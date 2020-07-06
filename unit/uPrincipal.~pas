@@ -20,6 +20,7 @@ type
     tmrPrincipal: TTimer;
     btnConfig: TSpeedButton;
     btnNovaSenha: TSpeedButton;
+    btnCadastraTipo: TSpeedButton;
     procedure FormActivate(Sender: TObject);
     procedure NovoContato;
     procedure btnCadContatosClick(Sender: TObject);
@@ -33,6 +34,7 @@ type
     procedure SetarConfiguracoes;
     procedure btnConfigClick(Sender: TObject);
     procedure btnNovaSenhaClick(Sender: TObject);
+    procedure btnCadastraTipoClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -48,7 +50,7 @@ implementation
 {$R *.dfm}
 
 uses uDM, uGeral, uCadastraCont, uCadastraCompromisso, uLogin, ZDataset, uInfosComp,
-  uCadastraBase, uConfig, StrUtils, uTrocaSenha;
+  uCadastraBase, uConfig, StrUtils, uTrocaSenha, uCadTipoComp;
 
 procedure TfrmPrincipal.btnCadContatosClick(Sender: TObject);
 begin
@@ -186,7 +188,17 @@ procedure TfrmPrincipal.btnNovaSenhaClick(Sender: TObject);
 begin
   if (frmTrocaSenha = nil) then
     Application.CreateForm(TfrmTrocaSenha,frmTrocaSenha);
+  frmTrocaSenha.SetarTitulo('Trocar senha do usuário');
   frmTrocaSenha.ShowModal;
+end;
+
+procedure TfrmPrincipal.btnCadastraTipoClick(Sender: TObject);
+begin
+  if (frmCadTipoComp = nil) then
+    Application.CreateForm(TfrmCadTipoComp,frmCadTipoComp);
+  frmCadTipoComp.SetarTitulo('Cadastrar tipo de compromisso');
+  ShowMessage(frmCadTipoComp.zqryTipoComp.SQL.Text);
+  frmCadTipoComp.ShowModal;
 end;
 
 end.

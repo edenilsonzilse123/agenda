@@ -24,6 +24,9 @@ function  PrimeiraMaiuscula(dsTexto:String):String;
 function  GetValorParametro(nomeParametro:String):Boolean;
 function  EhIgualS(v1,v2:String):Boolean;
 
+var
+  vCodigoUsuario:Integer;
+
 implementation
 
 uses uDM;
@@ -140,9 +143,10 @@ begin
     Connection := dm.conn;
     Close;
     SQL.Clear;
-    SQL.Add('SELECT COUNT(*) FROM TB_LOGIN WHERE DS_LOGIN = UPPER('+StringSql(Login)+') AND DS_SENHA = CRIPTOGRAFAR('+StringSql(senha)+')');
+    SQL.Add('SELECT * FROM TB_LOGIN WHERE DS_LOGIN = UPPER('+StringSql(Login)+') AND DS_SENHA = CRIPTOGRAFAR('+StringSql(senha)+')');
     Open; First; FetchAll;
-    Result := (Fields[0].AsInteger >= 1);
+    vCodigoUsuario := FieldByName('id').AsInteger;
+    Result := (RecordCount >= 1);
   end;
   FreeAndNil(zLogin);
 end;

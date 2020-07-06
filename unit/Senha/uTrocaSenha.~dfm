@@ -1,8 +1,13 @@
 inherited frmTrocaSenha: TfrmTrocaSenha
   Caption = 'frmTrocaSenha'
+  ClientHeight = 164
+  ClientWidth = 194
+  OldCreateOrder = True
   PixelsPerInch = 96
   TextHeight = 13
   inherited pnlBotoes: TPanel
+    Top = 119
+    Width = 194
     inherited btnGravar: TSpeedButton
       OnClick = btnGravarClick
     end
@@ -10,7 +15,7 @@ inherited frmTrocaSenha: TfrmTrocaSenha
   object lbledtSenha: TLabeledEdit
     Left = 8
     Top = 24
-    Width = 361
+    Width = 177
     Height = 21
     EditLabel.Width = 61
     EditLabel.Height = 13
@@ -21,7 +26,7 @@ inherited frmTrocaSenha: TfrmTrocaSenha
   object lbledtSenhaNova: TLabeledEdit
     Left = 8
     Top = 64
-    Width = 361
+    Width = 177
     Height = 21
     EditLabel.Width = 76
     EditLabel.Height = 13

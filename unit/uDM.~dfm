@@ -9,6 +9,7 @@ object dm: Tdm
     Properties.Strings = (
       'controls_cp=CP_UTF8'
       'AutoEncodeStrings=ON')
+    AutoCommit = False
     Connected = True
     HostName = 'localhost'
     Port = 3306
@@ -71,6 +72,7 @@ object dm: Tdm
     object strngfldContatosATIVO: TStringField
       FieldName = 'ATIVO'
       ReadOnly = True
+      Visible = False
       Size = 4
     end
   end

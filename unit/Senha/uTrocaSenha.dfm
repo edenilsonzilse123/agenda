@@ -2,6 +2,7 @@ inherited frmTrocaSenha: TfrmTrocaSenha
   Caption = 'frmTrocaSenha'
   ClientHeight = 164
   ClientWidth = 194
+  OldCreateOrder = True
   PixelsPerInch = 96
   TextHeight = 13
   inherited pnlBotoes: TPanel

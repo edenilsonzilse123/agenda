@@ -5647,18 +5647,21 @@ CREATE TABLE IF NOT EXISTS `tb_compromissos` (
   `dt_comp` date DEFAULT NULL,
   `hr_comp` time DEFAULT NULL,
   `desc_comp` varchar(1000) DEFAULT NULL,
+  `id_tipo` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_tb_compromissos_tb_contatos` (`id_contato`),
+  KEY `FK_tb_compromissos_tb_compromissos` (`id_tipo`),
+  CONSTRAINT `FK_tb_compromissos_tb_compromissos` FOREIGN KEY (`id_tipo`) REFERENCES `tb_compromissos` (`id`),
   CONSTRAINT `FK_tb_compromissos_tb_contatos` FOREIGN KEY (`id_contato`) REFERENCES `tb_contatos` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Copiando dados para a tabela agenda.tb_compromissos: ~2 rows (aproximadamente)
 /*!40000 ALTER TABLE `tb_compromissos` DISABLE KEYS */;
-INSERT IGNORE INTO `tb_compromissos` (`id`, `dt_cadastro`, `dt_atualizacao`, `id_contato`, `dt_comp`, `hr_comp`, `desc_comp`) VALUES
-	(1, '2020-06-15 00:57:20', '2020-06-15 05:34:35', 1, '2020-06-15', '06:00:00', 'Teste'),
-	(6, '2020-06-15 08:32:57', NULL, 3, '2020-06-15', '10:00:00', 'Compromisso de teste com carro'),
-	(7, '2020-06-15 09:02:12', NULL, 2, '2020-06-15', '11:00:00', 'Teste comp 2'),
-	(8, '2020-06-18 08:34:43', NULL, 4, '2020-06-18', '11:00:00', 'Pegar procuração (Cancelamento)');
+INSERT IGNORE INTO `tb_compromissos` (`id`, `dt_cadastro`, `dt_atualizacao`, `id_contato`, `dt_comp`, `hr_comp`, `desc_comp`, `id_tipo`) VALUES
+	(1, '2020-06-15 00:57:20', '2020-06-15 05:34:35', 1, '2020-06-15', '06:00:00', 'Teste', NULL),
+	(6, '2020-06-15 08:32:57', NULL, 3, '2020-06-15', '10:00:00', 'Compromisso de teste com carro', NULL),
+	(7, '2020-06-15 09:02:12', NULL, 2, '2020-06-15', '11:00:00', 'Teste comp 2', NULL),
+	(8, '2020-06-18 08:34:43', NULL, 4, '2020-06-18', '11:00:00', 'Pegar procuração (Cancelamento)', NULL);
 /*!40000 ALTER TABLE `tb_compromissos` ENABLE KEYS */;
 
 -- Copiando estrutura para tabela agenda.tb_configuracoes
@@ -5670,13 +5673,14 @@ CREATE TABLE IF NOT EXISTS `tb_configuracoes` (
   `mostra_contatos` int DEFAULT '1',
   `mostra_compromissos` int DEFAULT '1',
   `mostra_todoscomp` int DEFAULT NULL,
+  `mostra_contatosinativos` int DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Copiando dados para a tabela agenda.tb_configuracoes: ~1 rows (aproximadamente)
 /*!40000 ALTER TABLE `tb_configuracoes` DISABLE KEYS */;
-INSERT IGNORE INTO `tb_configuracoes` (`id`, `dt_cadastro`, `dt_atualizacao`, `mostra_contatos`, `mostra_compromissos`, `mostra_todoscomp`) VALUES
-	(1, '2020-06-15 10:17:48', '2020-06-21 14:52:41', 1, 1, 1);
+INSERT IGNORE INTO `tb_configuracoes` (`id`, `dt_cadastro`, `dt_atualizacao`, `mostra_contatos`, `mostra_compromissos`, `mostra_todoscomp`, `mostra_contatosinativos`) VALUES
+	(1, '2020-06-15 10:17:48', '2020-06-21 21:07:40', 1, 1, 1, 0);
 /*!40000 ALTER TABLE `tb_configuracoes` ENABLE KEYS */;
 
 -- Copiando estrutura para tabela agenda.tb_contatos
@@ -5691,21 +5695,23 @@ CREATE TABLE IF NOT EXISTS `tb_contatos` (
   `estado` int DEFAULT NULL,
   `ddd` int DEFAULT NULL,
   `telefone` int DEFAULT NULL,
+  `is_ativo` char(1) DEFAULT 'S',
   PRIMARY KEY (`id`),
   KEY `FK_tb_contatos_cidade` (`cidade`),
   KEY `FK_tb_contatos_estado` (`estado`),
   CONSTRAINT `FK_tb_contatos_cidade` FOREIGN KEY (`cidade`) REFERENCES `cidade` (`id`),
   CONSTRAINT `FK_tb_contatos_estado` FOREIGN KEY (`estado`) REFERENCES `estado` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Copiando dados para a tabela agenda.tb_contatos: ~5 rows (aproximadamente)
 /*!40000 ALTER TABLE `tb_contatos` DISABLE KEYS */;
-INSERT IGNORE INTO `tb_contatos` (`id`, `dt_cadastro`, `dt_atualizacao`, `nome`, `endereco`, `cidade`, `estado`, `ddd`, `telefone`) VALUES
-	(1, '2020-06-03 21:59:28', NULL, 'Edenilson Zilse', 'Waldo Klemann', NULL, NULL, NULL, NULL),
-	(2, '2020-06-06 23:02:02', NULL, 'Teste', 'Teste', 4611, 24, NULL, NULL),
-	(3, '2020-06-08 00:11:33', NULL, 'Teste 123', 'Teste 456', 4611, 24, 47, 33876653),
-	(4, '2020-06-18 08:33:31', NULL, 'Cartório de pomerode', 'R. Luiz Abry, 485', 4611, 24, 47, 33808172),
-	(5, '2020-06-18 08:59:32', NULL, 'teste', 'teste', 4611, 24, 47, 33876653);
+INSERT IGNORE INTO `tb_contatos` (`id`, `dt_cadastro`, `dt_atualizacao`, `nome`, `endereco`, `cidade`, `estado`, `ddd`, `telefone`, `is_ativo`) VALUES
+	(1, '2020-06-03 21:59:28', '2020-06-21 21:08:59', 'Edenilson Zilse', 'Waldo Klemann', NULL, NULL, NULL, NULL, 'S'),
+	(2, '2020-06-06 23:02:02', NULL, 'Teste', 'Teste', 4611, 24, NULL, NULL, 'S'),
+	(3, '2020-06-08 00:11:33', NULL, 'Teste 123', 'Teste 456', 4611, 24, 47, 33876653, 'S'),
+	(4, '2020-06-18 08:33:31', NULL, 'Cartório de pomerode', 'R. Luiz Abry, 485', 4611, 24, 47, 33808172, 'S'),
+	(5, '2020-06-18 08:59:32', NULL, 'teste', 'teste', 4611, 24, 47, 33876653, 'S'),
+	(6, '2020-06-21 21:07:19', '2020-06-21 21:09:53', 'aaaa', 'aaaa', 4611, 24, 47, 999999, 'S');
 /*!40000 ALTER TABLE `tb_contatos` ENABLE KEYS */;
 
 -- Copiando estrutura para tabela agenda.tb_login
@@ -5722,8 +5728,22 @@ CREATE TABLE IF NOT EXISTS `tb_login` (
 -- Copiando dados para a tabela agenda.tb_login: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `tb_login` DISABLE KEYS */;
 INSERT IGNORE INTO `tb_login` (`id`, `dt_cadastro`, `dt_atualizacao`, `ds_login`, `ds_senha`) VALUES
-	(1, '2020-06-15 01:41:32', NULL, 'ADMIN', 'FF297DD696FC4AABE14E0E41348E438CF63F516D');
+	(1, '2020-06-15 01:41:32', '2020-06-22 02:10:02', 'ADMIN', 'FF297DD696FC4AABE14E0E41348E438CF63F516D');
 /*!40000 ALTER TABLE `tb_login` ENABLE KEYS */;
+
+-- Copiando estrutura para tabela agenda.tb_tipocompromisso
+DROP TABLE IF EXISTS `tb_tipocompromisso`;
+CREATE TABLE IF NOT EXISTS `tb_tipocompromisso` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `dt_cadastro` datetime DEFAULT NULL,
+  `dt_atualizacao` datetime DEFAULT NULL,
+  `ds_tipo` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Copiando dados para a tabela agenda.tb_tipocompromisso: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `tb_tipocompromisso` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tb_tipocompromisso` ENABLE KEYS */;
 
 -- Copiando estrutura para view agenda.tb_compromissos_v
 DROP VIEW IF EXISTS `tb_compromissos_v`;
@@ -5744,7 +5764,8 @@ CREATE TABLE `tb_contatos_v` (
 	`DDD` VARCHAR(11) NULL COLLATE 'utf8mb4_0900_ai_ci',
 	`TELEFONE` VARCHAR(11) NULL COLLATE 'utf8mb4_0900_ai_ci',
 	`CIDADENOME` VARCHAR(120) NULL COLLATE 'latin1_swedish_ci',
-	`ESTADONOME` VARCHAR(75) NULL COLLATE 'latin1_swedish_ci'
+	`ESTADONOME` VARCHAR(75) NULL COLLATE 'latin1_swedish_ci',
+	`ATIVO` VARCHAR(1) NULL COLLATE 'utf8mb4_0900_ai_ci'
 ) ENGINE=MyISAM;
 
 -- Copiando estrutura para procedure agenda.insereLogin
@@ -5888,6 +5909,26 @@ END//
 DELIMITER ;
 SET SQL_MODE=@OLDTMP_SQL_MODE;
 
+-- Copiando estrutura para trigger agenda.tb_tipocompromisso_atualizacao
+DROP TRIGGER IF EXISTS `tb_tipocompromisso_atualizacao`;
+SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION';
+DELIMITER //
+CREATE TRIGGER `tb_tipocompromisso_atualizacao` BEFORE UPDATE ON `tb_tipocompromisso` FOR EACH ROW BEGIN
+	SET NEW.dt_atualizacao := NOW();
+END//
+DELIMITER ;
+SET SQL_MODE=@OLDTMP_SQL_MODE;
+
+-- Copiando estrutura para trigger agenda.tb_tipocompromisso_cadastro
+DROP TRIGGER IF EXISTS `tb_tipocompromisso_cadastro`;
+SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION';
+DELIMITER //
+CREATE TRIGGER `tb_tipocompromisso_cadastro` BEFORE INSERT ON `tb_tipocompromisso` FOR EACH ROW BEGIN
+	SET NEW.dt_cadastro := NOW();
+END//
+DELIMITER ;
+SET SQL_MODE=@OLDTMP_SQL_MODE;
+
 -- Copiando estrutura para view agenda.tb_compromissos_v
 DROP VIEW IF EXISTS `tb_compromissos_v`;
 -- Removendo tabela temporária e criando a estrutura VIEW final
@@ -5898,7 +5939,7 @@ CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `tb_compromissos_v` AS sele
 DROP VIEW IF EXISTS `tb_contatos_v`;
 -- Removendo tabela temporária e criando a estrutura VIEW final
 DROP TABLE IF EXISTS `tb_contatos_v`;
-CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `tb_contatos_v` AS select substr(`contato`.`nome`,1,255) AS `NOME`,substr(`contato`.`endereco`,1,255) AS `ENDERECO`,substr(`contato`.`ddd`,1,255) AS `DDD`,substr(`contato`.`telefone`,1,255) AS `TELEFONE`,substr(`cid`.`nome`,1,255) AS `CIDADENOME`,substr(`est`.`nome`,1,255) AS `ESTADONOME` from ((`tb_contatos` `contato` left join `cidade` `cid` on((`cid`.`id` = `contato`.`cidade`))) left join `estado` `est` on((`est`.`id` = `contato`.`estado`))) order by `contato`.`id` desc limit 5;
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `tb_contatos_v` AS select substr(`contato`.`nome`,1,255) AS `NOME`,substr(`contato`.`endereco`,1,255) AS `ENDERECO`,substr(`contato`.`ddd`,1,255) AS `DDD`,substr(`contato`.`telefone`,1,255) AS `TELEFONE`,substr(`cid`.`nome`,1,255) AS `CIDADENOME`,substr(`est`.`nome`,1,255) AS `ESTADONOME`,substr(`contato`.`is_ativo`,1,255) AS `ATIVO` from ((`tb_contatos` `contato` left join `cidade` `cid` on((`cid`.`id` = `contato`.`cidade`))) left join `estado` `est` on((`est`.`id` = `contato`.`estado`))) order by `contato`.`id` desc limit 5;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
